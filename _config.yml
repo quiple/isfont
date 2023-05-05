@@ -1,0 +1,16 @@
+title: Isfont
+author: Minseo Lee
+email: itoupluk427@gmail.com
+# description:
+url: https://isfont.quiple.dev
+twitter_username: kuipuru
+github_username: quiple
+github_reponame: isfont
+sass:
+  style: compressed
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+exclude:
+  - Isfont.html

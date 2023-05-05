@@ -1,0 +1,362 @@
+---
+layout: default
+---
+<style></style>
+<script src="./inflate.m.js"></script>
+<script src="./font-info.m.js"></script>
+<script>
+  !((document, undefined) => {
+
+    const get = s => document.querySelector(s)
+    const element = n => document.createElement(n)
+    const insert = (p, e, b) => (p.insertBefore(e, b), p)
+
+    var body, main
+    var title = document.title
+
+    function show(y) {
+      if (!(y >= 0))
+        y = body.className != 'in'
+      body.className = y ? 'in' : 'ni'
+      if (y)
+        scrollTo(0, 0)
+    }
+
+    onpopstate = state_change
+
+    function state_change(z) {
+      var state = z.state
+      document.title = title
+      if (state)
+        return new_font(state)
+      var h = location.hash.substr(1)
+      if (h)
+        changed({ url: h })
+    }
+
+    function changed(state, push) {
+      document.title = title
+      new_font(state)
+      var u = location.href.replace(/#.*/, '')
+      if (state.url)
+        u += '#' + state.url
+      if (push)
+        history.pushState(state, document.title, u)
+      else
+        history.replaceState(state, document.title, u)
+      // 추가 내용 시작
+      get('#char').style.display = 'flex';
+      // 추가 내용 끝
+    }
+
+    onload = () => {
+      body = get('body')
+      main = get('main')
+
+      get('form').onsubmit = function (z) { // uses this
+        z.preventDefault()
+        var u = this[0].value
+        if (u)
+          changed({ url: u }, 1)
+      }
+
+      get('#file').onchange = function () { // uses this
+        var f = this.files
+        if (f && (f = f[0])) {
+          this.value = ''
+          changed({ file: f }, 1)
+        }
+      }
+
+      setTimeout(() => {
+        get('#in').style.transition = 'all .1s'
+      }, 0)
+
+      state_change({})
+    }
+
+    onclick = z => {
+      var e = z.target
+      var id = e.id || e.parentNode.id
+      if (id == 'open')
+        open()
+      else if (id == 'x')
+        show()
+      else if (body.className && id != 'file' && document.getSelection().type != 'Range') {
+        do {
+          var y = e.id == 'in'
+        } while (!y && (e = e.parentNode))
+        show(y)
+      }
+    }
+
+    onkeydown = z => {
+      if (z.keyCode == 0x4F && z.ctrlKey) {
+        z.preventDefault()
+        open()
+      }
+      if (z.keyCode == 27)
+        show()
+    }
+
+    function open() {
+      get('#file').click()
+    }
+
+    ondragenter = ondragover = ondrop = z => {
+      var t = z.type
+      var dt, v
+      if (t == 'drop') {
+        dt = z.dataTransfer
+        if (v = dt.files[0])
+          new_font({ file: v })
+        else if (v = dt.getData('URL'))
+          location.hash = v
+      }
+      return !1
+    }
+
+    function new_font(o) {
+      show(0)
+
+      var out = main
+      out.innerHTML = '<div>'
+      out = out.firstChild
+      out.textContent = 'Loading' + (o.url ? ' ' + o.url : '') + '...'
+      out.innerHTML += '<div id=pb style=font-size:16px>'
+
+      req(o, (o, b, t) => {
+        if (!b)
+          return error(t)
+
+        try {
+          var file = new Uint8Array(b)
+          var font = font_info(file, {
+            head: true,
+            maxp: true,
+            cmap: true,
+            name: true,
+            GPOS: false,
+            GSUB: false,
+            hhea: true,
+            'OS/2': false
+          })
+        } catch (x) {
+          out.innerHTML = ''
+          return error(x)
+        }
+
+        out = main
+
+        if (document.fonts)
+          document.fonts.onloadingerror = z => {
+            error("Can't render", get('main h2').nextSibling)
+          }
+
+        var css = document.styleSheets[1]
+        var r = css.cssRules[0]
+        var u = o.url
+        if (!u)
+          u = URL.createObjectURL(o.file)
+        if (r)
+          css.deleteRule(r)
+        css.insertRule(`@font-face {font-family:thefont;src:url("${u}")}`, css.cssRules.length)
+
+        list_font(font, file)
+      })
+
+      function error(t, before) {
+        var e
+        e = element('p')
+        e.className = 'err'
+        e.textContent = t
+        insert(out, e, before)
+        e = get('#pb')
+        if (e) e.remove()
+      }
+    }
+
+    function list_font(font, file) {
+      var { name, ranges, strings, features, created, modified } = font
+
+      main.innerHTML = '<h2></h2><table id=t></table><dl compact></dl><p>'
+      var [title, table, names, summ] = main.children
+      title.textContent = document.title = name || 'No Name'
+
+      var tbody = element('tbody')
+      var row
+      var n = 0
+      if (ranges) for (var range of ranges) {
+        var [start, len] = range
+        var end = start + len
+
+        while (n < start) {
+          if ((n & 15) == 0) {
+            var nx = start & ~15
+            if (n != nx && row)
+              row.className = 'b'
+            n = nx
+            if (n == start)
+              break
+            tr(n)
+          }
+          td()
+          n++
+        }
+        do {
+          if ((n & 15) == 0)
+            tr(n)
+          td(n)
+        } while (++n < end)
+      }
+      while (n++ & 15)
+        td()
+      insert(table, tbody)
+
+      function tr(u) {
+        row = element('tr')
+        insert(tbody, row)
+        var s = u.toString(16).toUpperCase()
+        s = u > 0xFFF ? s : '0'.repeat(4 - s.length) + s
+        row.innerHTML = `<th>${s}`
+      }
+
+      function td(u) {
+        var e = element('td')
+        if (u != undefined) {
+          e.className = 'c'
+          var s = ''
+          if (u > 0xFFFF) {
+            u -= 0x10000
+            s = String.fromCharCode(u >> 10 | 0xD800)
+            u = u & 0x3FF | 0xDC00
+          }
+          e.textContent = s + String.fromCharCode(u)
+          // 추가 내용 시작
+          e.addEventListener('mouseover', (event) => {
+            get('#char').textContent = event.target.textContent;
+          })
+          // 추가 내용 끝
+        }
+        insert(row, e)
+      }
+
+      var ns = ["Copyright", "Family", "Subfamily", "Id", "Full Name",
+        "Version", "PostScript Name", "Trademark", "Manufacturer", "Designer",
+        "Description", "Manufacturer URL", "Designer URL", "License",
+        "License URL", , , , , "Sample Text", , , , , , "Variations PostScript Name Prefix"]
+
+      for (var n in strings) {
+        var dt = element('dt')
+        var e = element('dd')
+        var dd = e
+        var nm = n in ns ? ns[n] : '#' + n
+        dt.textContent = nm
+        dt.title = n
+        var v = strings[n]
+        if (/URL/.test(nm)) {
+          e = element('a')
+          e.href = (
+            v.match(/^[^:/]+@/) ? 'mailto:' :
+              v.match(/^[a-z0-9]+:/i) ? '' : 'http://'
+          ) + v
+          // 추가 내용 시작
+          e.target = '_blank'
+          e.rel = 'noreferrer noopener'
+          // 추가 내용 끝
+          insert(dd, e)
+        }
+        e.textContent = v
+        if (+n == 19)
+          dd.style.fontFamily = 'thefont'
+        insert(insert(names, dt), dd)
+      }
+
+      if (features && features[0]) {
+        var e = element('p')
+        e.textContent = 'Features: ' + features.join(' ')
+        insert(main, e, summ)
+      }
+
+      var [dc, dm] = [created, modified].map(t => t && t.toISOString().substr(0, 10))
+      var s = font.type
+      v = dm && dm != dc
+      n = font.num_glyphs
+      s += `, ${n} glyph` + (n - 1 ? 's' : '')
+        + `, ${file.length} bytes`
+        + (dc ? `, created <time>${dc}</time>` : '')
+        + (dm ? `, modified <time>${dm}</time>` : '')
+      summ.innerHTML = s
+    }
+
+    function req(g, a) {
+      if (g.file) {
+        r = new FileReader
+        r.onload = () => {
+          a(g, r.result)
+        }
+        return r.readAsArrayBuffer(g.file)
+      }
+
+      var r = new XMLHttpRequest
+      r.open('GET', g.url)
+      r.setRequestHeader('Accept', 'font/*,*/*')
+      r.responseType = 'arraybuffer'
+      r.send()
+      r.onload = () => {
+        var s = r.status
+        if (s && s != 200)
+          r.onerror()
+        else
+          a(g, r.response)
+      }
+      r.onerror = () => {
+        var v
+        a(g, v, r.statusText || 'Error (CORS?)')
+      }
+      var pb = get('#pb')
+      if (pb) !(r.onprogress = z => {
+        var s, t, n
+        var c0 = '\u25CB'
+        var c1 = '\u25CF'
+        if (!z)
+          s = c0.repeat(10)
+        else {
+          t = z.total
+          n = z.loaded
+          if (t) {
+            n = 10 * (t - n) / t | 0
+            s = c1.repeat(10 - n) + c0.repeat(n)
+          } else {
+            n %= 10
+            s = c0.repeat(n) + c1 + c0.repeat(9 - n)
+          }
+        }
+        pb.innerHTML = s
+      })()
+    }
+
+    /* !INCLUDE */
+  })(document)
+</script>
+<div id="in">
+  <div>
+    <h1>Isfont</h1>
+    <p>List character map of a font. Accepts TrueType, OpenType and WOFF fonts.</p>
+    <form>
+      <input type="url" id="url" size="88" accesskey="u" placeholder="URL of the font file" />
+    </form>
+    <p><button id="open" accesskey="o"><b>Open local font...</b> Ctrl + O</button> or drop here</p>
+  </div>
+  <a id="x"></a>
+</div>
+<div id="list">
+  <div id="char"></div>
+  <main></main>
+</div>
+<input id="file" type="file" accept=".ttf, .otf, .woff" hidden />
+<script>
+  function char(e) {
+    document.getElementById('char').textContent = e.textContent;
+  }
+</script>

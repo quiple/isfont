@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="{{ site.author }}" />
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} • {% endif %}{{ site.title }}" />
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ site.url }}" />
+  <meta property="og:locale" content="en_US" />
+  <title>{% if page.title %}{{ page.title }} • {% endif -%}{{ site.title }}</title>
+  <link rel="canonical" href="{{ site.url }}" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+  {{ content }}
+  <footer>
+    <small>This tool is based on <a href="https://github.com/jan-bobrowski/lsfont" target="_blank" rel="noreferrer noopener">Isfont</a> by Jan Bobrowski.</small>
+  </footer>
+</body>
+
+</html>
