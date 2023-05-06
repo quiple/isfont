@@ -278,7 +278,9 @@ layout: default
 
       if (features && features[0]) {
         var e = element('p')
-        e.textContent = 'Features: ' + features.join(' ')
+        // 추가 내용 시작
+        e.innerHTML = 'Features: <code>' + features.join('</code> <code>') + '</code>';
+        // 추가 내용 끝
         insert(main, e, summ)
       }
 
