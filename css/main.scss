@@ -15,6 +15,7 @@ $background: #18181b;
 $black: #09090b;
 $vertical_padding: 2rem;
 $horizontal_padding: 4rem;
+$mono: ui-monospace, SFMono-Regular, 'SF Mono', 'IBM Plex Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard Variable', Pretendard, 'Inter var', Inter, Roboto, 'Noto Sans KR', 'Segoe UI', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
@@ -41,7 +42,7 @@ body {
 }
 
 code {
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', 'IBM Plex Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-family: $mono;
   font-size: .875rem;
   background-color: #{$foreground}1f;
   padding: .125rem .25rem;
@@ -135,8 +136,6 @@ dt {
     display: none;
     justify-content: center;
     align-items: center;
-    font-size: 24vw;
-    font-family: 'thefont', sans-serif;
     cursor: default;
     width: calc(100% * (2 / 5));
     background-color: $black;
@@ -145,6 +144,24 @@ dt {
     position: sticky;
     top: 2rem;
     overflow: hidden;
+
+    span:first-child {
+      font: {
+        size: 24vw;
+        family: 'thefont', sans-serif;
+      }
+    }
+
+    span:last-child {
+      position: absolute;
+      bottom: .5rem;
+      right: .875rem;
+      color: #{$foreground}3f;
+      font: {
+        family: $mono;
+        weight: 500;
+      }
+    }
   }
 
   main {
@@ -179,9 +196,9 @@ dt {
         color: #{$foreground}3f;
 
         font: {
+          family: $mono;
           size: .75rem;
           weight: 500;
-          variant-numeric: tabular-nums;
         }
       }
 
