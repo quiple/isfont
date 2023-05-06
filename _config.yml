@@ -1,11 +1,11 @@
-title: Isfont
+title: lsfont
 author: Minseo Lee
 email: itoupluk427@gmail.com
 # description:
-url: https://isfont.quiple.dev
+url: https://lsfont.quiple.dev
 twitter_username: kuipuru
 github_username: quiple
-github_reponame: isfont
+github_reponame: lsfont
 sass:
   style: compressed
 kramdown:
@@ -13,4 +13,4 @@ kramdown:
   syntax_highlighter: rouge
 
 exclude:
-  - Isfont.html
+  - lsfont.html
