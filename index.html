@@ -160,7 +160,9 @@ layout: default
           u = URL.createObjectURL(o.file)
         if (r)
           css.deleteRule(r)
-        css.insertRule(`@font-face {font-family:thefont;src:url("${u}")}`, css.cssRules.length)
+        // 추가 내용 시작
+        css.insertRule(`@font-face { font-family: thefont; src: url("${u}"); font-display: block; }`, css.cssRules.length)
+        // 추가 내용 끝
 
         list_font(font, file)
       })
