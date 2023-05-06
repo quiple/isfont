@@ -235,7 +235,10 @@ layout: default
           // 추가 내용 시작
           e.addEventListener('mouseover', (event) => {
             get('#char').textContent = event.target.textContent;
-          })
+          });
+          e.addEventListener('click', (event) => {
+            navigator.clipboard.writeText(event.target.textContent);
+          });
           // 추가 내용 끝
         }
         insert(row, e)
@@ -261,8 +264,8 @@ layout: default
               v.match(/^[a-z0-9]+:/i) ? '' : 'http://'
           ) + v
           // 추가 내용 시작
-          e.target = '_blank'
-          e.rel = 'noreferrer noopener'
+          e.target = '_blank';
+          e.rel = 'noreferrer noopener';
           // 추가 내용 끝
           insert(dd, e)
         }
@@ -355,8 +358,3 @@ layout: default
   <main></main>
 </div>
 <input id="file" type="file" accept=".ttf, .otf, .woff" hidden />
-<script>
-  function char(e) {
-    document.getElementById('char').textContent = e.textContent;
-  }
-</script>

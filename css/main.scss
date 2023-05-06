@@ -178,6 +178,7 @@ dt {
       }
 
       td {
+        cursor: pointer;
         text-align: center;
         font-size: 1.75vw;
         padding: .25vw 0;
@@ -188,6 +189,10 @@ dt {
 
           &:hover {
             background-color: #{$foreground}1f;
+          }
+
+          &:active {
+            background-color: $black;
           }
         }
       }
