@@ -246,10 +246,9 @@ layout: default
         insert(row, e)
       }
 
-      var ns = ["Copyright", "Family", "Subfamily", "Id", "Full Name",
-        "Version", "PostScript Name", "Trademark", "Manufacturer", "Designer",
-        "Description", "Manufacturer URL", "Designer URL", "License",
-        "License URL", , , , , "Sample Text", , , , , , "Variations PostScript Name Prefix"]
+      // 추가 내용 시작
+      var ns = ["Copyright", "Family", "Subfamily", "UniqueID", "Fullname", "Version", "PostScript Name", "Trademark", "Manufacturer", "Designer", "Description", "Vendor URL", "Designer URL", "License", "License URL", , "Typographic Family", "Typographic Subfamily", "Compatible Full", "Sample Text", "PostScript CID FindFont Name", "WWS Family", "WWS Subfamily", "Light Background Palette", "Dark Background Palette", "Variations PostScript Name Prefix"]
+      // 추가 내용 끝
 
       for (var n in strings) {
         var dt = element('dt')
