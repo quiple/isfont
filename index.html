@@ -50,26 +50,6 @@ layout: default
       if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
         get('#copy').style.display = 'none';
       }
-      get('#copy').addEventListener('click', event => {
-        html2canvas(get('#char')).then(canvas => {
-          canvas.toBlob(function (blob) {
-            navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-          });
-        });
-      });
-      get('#png').addEventListener('click', event => {
-        html2canvas(get('#char')).then(canvas => {
-          canvas.toBlob(function (blob) {
-            var url = window.URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = `${get('#char span:nth-child(2)').textContent} - ${get('#char span:last-child').textContent}.png`;
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
-          });
-        });
-      });
       // 추가 내용 끝
     }
 
@@ -404,3 +384,25 @@ layout: default
   <main></main>
 </div>
 <input id="file" type="file" accept=".ttf, .otf, .woff" hidden />
+<script>
+  document.getElementById('copy').addEventListener('click', event => {
+    html2canvas(document.getElementById('char')).then(canvas => {
+      canvas.toBlob(function (blob) {
+        navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      });
+    });
+  });
+  document.getElementById('png').addEventListener('click', event => {
+    html2canvas(document.getElementById('char')).then(canvas => {
+      canvas.toBlob(function (blob) {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = `${document.querySelector('#char span:nth-child(2)').textContent} - ${document.querySelector('#char span:last-child').textContent}.png`;
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      });
+    });
+  });
+</script>
