@@ -229,11 +229,11 @@ layout: default
       function td(u) {
         var e = element('td')
         if (u != undefined) {
-          e.className = 'c'
-          var s = ''
           // 추가 내용 시작
+          e.classList.add('c');
           var u32 = u.toString(16).toUpperCase();
           // 추가 내용 끝
+          var s = ''
           if (u > 0xFFFF) {
             u -= 0x10000
             s = String.fromCharCode(u >> 10 | 0xD800)
@@ -242,12 +242,13 @@ layout: default
           e.textContent = s + String.fromCharCode(u)
           // 추가 내용 시작
           e.setAttribute('title', 'U+' + u32.padStart(4, '0'));
-          e.addEventListener('mouseover', (event) => {
+          e.addEventListener('click', event => {
             get('#char span:first-child').textContent = event.target.textContent;
             get('#char span:last-child').textContent = event.target.getAttribute('title');
-          });
-          e.addEventListener('click', (event) => {
-            navigator.clipboard.writeText(event.target.textContent);
+            document.querySelectorAll('td.c.selected').forEach(element => {
+              element.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
           });
           // 추가 내용 끝
         }
