@@ -152,15 +152,22 @@ dt {
       }
     }
 
-    span:last-child {
+    span:nth-child(2), span:last-child {
       position: absolute;
       bottom: .5rem;
-      right: .875rem;
       color: #{$foreground}3f;
       font: {
         family: $mono;
         weight: 500;
       }
+    }
+
+    span:nth-child(2) {
+      left: .875rem;
+    }
+
+    span:last-child {
+      right: .875rem;
     }
   }
 

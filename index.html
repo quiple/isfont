@@ -184,6 +184,9 @@ layout: default
       main.innerHTML = '<h2></h2><table id=t></table><dl compact></dl><p>'
       var [title, table, names, summ] = main.children
       title.textContent = document.title = name || 'No Name'
+      // 추가 내용 시작
+      get('#char span:nth-child(2)').textContent = document.title = name || 'No Name'
+      // 추가 내용 끝
 
       var tbody = element('tbody')
       var row
@@ -363,6 +366,7 @@ layout: default
 </div>
 <div id="list">
   <div id="char">
+    <span></span>
     <span></span>
     <span></span>
   </div>
