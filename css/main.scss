@@ -78,15 +78,18 @@ a {
 
 h1 {
   font: {
-    size: 3vw;
+    size: 3rem;
     weight: 800;
   }
 }
 
 dl {
   display: grid;
-  grid-template-columns: minmax(1px, auto) 1fr;
+  grid-template-columns: 1fr;
   gap: .5rem 2rem;
+  @media (min-width: 640px) {
+    grid-template-columns: minmax(1px, auto) 1fr;
+  }
 }
 
 dt {
