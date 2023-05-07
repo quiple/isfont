@@ -13,7 +13,7 @@ $anchor: #8ab4f8;
 $foreground: #fafafa;
 $background: #18181b;
 $black: #09090b;
-$vertical_padding: 2vw;
+$vertical_padding: 2.5vw;
 $horizontal_padding: 4vw;
 $mono: ui-monospace, SFMono-Regular, 'SF Mono', 'IBM Plex Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
@@ -140,7 +140,7 @@ button {
     width: 40%;
     flex-direction: column;
     position: sticky;
-    top: 2rem;
+    top: $vertical_padding;
     gap: 1rem;
 
     #char {
@@ -194,7 +194,7 @@ button {
     > h2 {
       display: inline-block;
       position: sticky;
-      top: 2rem;
+      top: $vertical_padding;
       background-color: #{$background}7f;
       backdrop-filter: blur(.5rem);
       font-weight: 700;
