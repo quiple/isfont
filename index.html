@@ -45,6 +45,8 @@ layout: default
       else
         history.replaceState(state, document.title, u)
       // 추가 내용 시작
+      get('#char span:first-child').textContent = '';
+      get('#char span:last-child').textContent = '';
       get('#left').style.display = 'flex';
       if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
         get('#copy').style.display = 'none';
