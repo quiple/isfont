@@ -219,12 +219,12 @@ button {
       }
 
       td {
-        cursor: pointer;
         text-align: center;
         font-size: 1.75vw;
         padding: .25vw 0;
 
         &.c {
+          cursor: pointer;
           font-family: 'thefont', sans-serif;
           background-color: $black;
 
