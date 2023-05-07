@@ -13,8 +13,8 @@ $anchor: #8ab4f8;
 $foreground: #fafafa;
 $background: #18181b;
 $black: #09090b;
-$vertical_padding: 2rem;
-$horizontal_padding: 4rem;
+$vertical_padding: 2vw;
+$horizontal_padding: 4vw;
 $mono: ui-monospace, SFMono-Regular, 'SF Mono', 'IBM Plex Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
 * {
@@ -134,7 +134,7 @@ button {
 
   #left {
     display: none;
-    width: calc(100% * (2 / 5));
+    width: 40%;
     flex-direction: column;
     position: sticky;
     top: 2rem;
@@ -161,7 +161,7 @@ button {
   
       span:nth-child(2), span:last-child {
         position: absolute;
-        bottom: .625vw;
+        bottom: .75vw;
         margin-bottom: -.25em;
         color: #{$foreground}3f;
         font: {
@@ -172,18 +172,21 @@ button {
       }
   
       span:nth-child(2) {
-        left: .625vw;
+        left: .75vw;
       }
   
       span:last-child {
-        right: .625vw;
+        right: .75vw;
       }
     }
   }
 
   main {
-    width: calc(100% * (3 / 5));
-    margin-left: 2rem;
+    width: 60%;
+
+    > * {
+      margin-left: 2vw;
+    }
 
     > h2 {
       display: inline-block;
@@ -195,12 +198,12 @@ button {
       font-size: 1.5rem;
 
       padding: {
-        left: .5rem;
-        right: .5rem;
+        left: .375em;
+        right: .375em;
       }
       margin: {
-        left: -.5rem;
-        right: -.5rem;
+        left: calc(2vw - .375em);
+        right: calc(2vw - .375em);
       }
     }
 
@@ -214,7 +217,7 @@ button {
 
         font: {
           family: $mono;
-          size: .75rem;
+          size: .875vw;
           weight: 500;
         }
       }
