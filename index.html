@@ -63,7 +63,7 @@ layout: default
             var url = window.URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = `${get('#char span:nth-child(2)').textContent}_${get('#char span:last-child').textContent}.png`;
+            a.download = `${get('#char span:nth-child(2)').textContent} - ${get('#char span:last-child').textContent}.png`;
             a.click();
             a.remove();
             window.URL.revokeObjectURL(url);

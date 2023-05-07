@@ -161,21 +161,22 @@ button {
   
       span:nth-child(2), span:last-child {
         position: absolute;
-        bottom: 1rem;
+        bottom: .625vw;
         margin-bottom: -.25em;
         color: #{$foreground}3f;
         font: {
           family: $mono;
           weight: 500;
+          size: 1vw;
         }
       }
   
       span:nth-child(2) {
-        left: 1rem;
+        left: .625vw;
       }
   
       span:last-child {
-        right: 1rem;
+        right: .625vw;
       }
     }
   }
