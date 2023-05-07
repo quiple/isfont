@@ -4,6 +4,7 @@ layout: default
 <style></style>
 <script src="./inflate.m.js"></script>
 <script src="./font-info.m.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js"></script>
 <script>
   !((document, undefined) => {
 
@@ -45,7 +46,30 @@ layout: default
       else
         history.replaceState(state, document.title, u)
       // 추가 내용 시작
-      get('#char').style.display = 'flex';
+      get('#left').style.display = 'flex';
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        get('#copy').style.display = 'none';
+      }
+      get('#copy').addEventListener('click', event => {
+        html2canvas(get('#char')).then(canvas => {
+          canvas.toBlob(function (blob) {
+            navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          });
+        });
+      });
+      get('#png').addEventListener('click', event => {
+        html2canvas(get('#char')).then(canvas => {
+          canvas.toBlob(function (blob) {
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = `${get('#char span:nth-child(2)').textContent}_${get('#char span:last-child').textContent}.png`;
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+          });
+        });
+      });
       // 추가 내용 끝
     }
 
@@ -366,10 +390,16 @@ layout: default
   <a id="x"></a>
 </div>
 <div id="list">
-  <div id="char">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div id="left">
+    <div id="char">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div>
+      <button id="copy" type="button">Copy image</button>
+      <button id="png" type="button">Download image</button>
+    </div>
   </div>
   <main></main>
 </div>

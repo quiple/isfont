@@ -106,7 +106,7 @@ dt {
   }
 }
 
-#open {
+button {
   font-size: 1rem;
   background-color: $foreground;
   color: $black;
@@ -132,42 +132,51 @@ dt {
   display: flex;
   align-items: flex-start;
 
-  #char {
+  #left {
     display: none;
-    justify-content: center;
-    align-items: center;
-    cursor: default;
     width: calc(100% * (2 / 5));
-    background-color: $black;
-    color: $foreground;
-    aspect-ratio: 1;
+    flex-direction: column;
     position: sticky;
     top: 2rem;
-    overflow: hidden;
+    gap: 1rem;
 
-    span:first-child {
-      font: {
-        size: 24vw;
-        family: 'thefont', sans-serif;
+    #char {
+      display: flex;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      cursor: default;
+      background-color: $black;
+      color: $foreground;
+      aspect-ratio: 1;
+      overflow: hidden;
+  
+      span:first-child {
+        font: {
+          size: 24vw;
+          family: 'thefont', sans-serif;
+        }
       }
-    }
-
-    span:nth-child(2), span:last-child {
-      position: absolute;
-      bottom: .5rem;
-      color: #{$foreground}3f;
-      font: {
-        family: $mono;
-        weight: 500;
+  
+      span:nth-child(2), span:last-child {
+        position: absolute;
+        bottom: 1rem;
+        margin-bottom: -.25em;
+        color: #{$foreground}3f;
+        font: {
+          family: $mono;
+          weight: 500;
+        }
       }
-    }
-
-    span:nth-child(2) {
-      left: .875rem;
-    }
-
-    span:last-child {
-      right: .875rem;
+  
+      span:nth-child(2) {
+        left: 1rem;
+      }
+  
+      span:last-child {
+        right: 1rem;
+      }
     }
   }
 
