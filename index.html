@@ -4,7 +4,6 @@ layout: default
 <style></style>
 <script src="./inflate.m.js"></script>
 <script src="./font-info.m.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js"></script>
 <script>
   !((document, undefined) => {
 
@@ -384,6 +383,7 @@ layout: default
   <main></main>
 </div>
 <input id="file" type="file" accept=".ttf, .otf, .woff" hidden />
+<script src="https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js"></script>
 <script>
   document.getElementById('copy').addEventListener('click', event => {
     html2canvas(document.getElementById('char')).then(canvas => {
