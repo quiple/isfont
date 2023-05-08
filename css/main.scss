@@ -157,6 +157,8 @@ button {
       overflow: hidden;
   
       span:first-child {
+        overflow: auto;
+        max-width: 100%;
         font: {
           size: 24vw;
           family: 'thefont', sans-serif;
