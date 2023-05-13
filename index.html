@@ -44,14 +44,6 @@ layout: default
         history.pushState(state, document.title, u)
       else
         history.replaceState(state, document.title, u)
-      // 추가 내용 시작
-      get('#char span:first-child').textContent = '';
-      get('#char span:last-child').textContent = '';
-      get('#left').style.display = 'flex';
-      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-        get('#copy').style.display = 'none';
-      }
-      // 추가 내용 끝
     }
 
     onload = () => {
@@ -122,6 +114,14 @@ layout: default
     }
 
     function new_font(o) {
+      // 추가 내용 시작
+      get('#char span:first-child').textContent = '';
+      get('#char span:last-child').textContent = '';
+      get('#left').style.display = 'flex';
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        get('#copy').style.display = 'none';
+      }
+      // 추가 내용 끝
       show(0)
 
       var out = main
