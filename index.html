@@ -121,6 +121,11 @@ layout: default
       if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
         get('#copy').style.display = 'none';
       }
+      get('#tameshi').style.fontSize = '36px';
+      get('#test-size-indicator').innerText = '36px';
+      get('#char span:first-child').style.fontWeight = '400';
+      get('#tameshi').style.fontWeight = '400';
+      get('#test-weight-indicator').innerText = '400';
       // 추가 내용 끝
       show(0)
 
@@ -381,12 +386,40 @@ layout: default
       <button id="copy" type="button">Copy image</button>
       <button id="png" type="button">Download image</button>
     </div>
+    <div class="style">
+      <input type="range" id="test-weight" min="0" max="1000" value="400">
+      <span id="test-weight-indicator" class="indicator">400</span>
+    </div>
+    <div class="style">
+      <input type="range" id="test-size" min="8" max="160" value="36">
+      <span id="test-size-indicator" class="indicator">36px</span>
+    </div>
+    <div>
+      <textarea name="tameshi" id="tameshi"></textarea>
+    </div>
   </div>
   <main></main>
 </div>
 <input id="file" type="file" accept=".ttf, .otf, .woff" hidden />
 <script src="https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js"></script>
 <script>
+  const glyph = document.querySelector('#char span:first-child');
+  const test = document.getElementById('tameshi');
+  const testSize = document.getElementById('test-size');
+  const testSizeIndicator = document.getElementById('test-size-indicator');
+  const testWeight = document.getElementById('test-weight');
+  const testWeightIndicator = document.getElementById('test-weight-indicator');
+
+  testSize.addEventListener('input', function() {
+    test.style.fontSize = this.value + 'px';
+    testSizeIndicator.innerText = this.value + 'px';
+  });
+  testWeight.addEventListener('input', function() {
+    glyph.style.fontWeight = this.value;
+    test.style.fontWeight = this.value;
+    testWeightIndicator.innerText = this.value;
+  });
+
   document.getElementById('copy').addEventListener('click', event => {
     html2canvas(document.getElementById('char')).then(canvas => {
       canvas.toBlob(function (blob) {
