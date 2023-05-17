@@ -15,10 +15,10 @@ if (typeof exports == 'object') {
 */
 
 function font_info(body, tables) {
-	const g16 = (b,o) => b[o]<<8 | b[o + 1]
-	const g16s = (b,o) => (g16(b, o) ^ 32768) - 32768
-	const g32 = (b,o) => (g16(b, o)<<16 | g16(b, o + 2)) >>> 0
-	const g64 = (b,o) => 65536*65536*g32(b, o) + g32(b, o + 4)
+	const g16 = (b,o) => b[o] << 8 | b[o + 1]
+	const g16s = (b,o) => (g16(b, o) ^ 0x8000) - 0x8000
+	const g32 = (b,o) => (g16(b, o) << 16 | g16(b, o + 2)) >>> 0
+	const g64 = (b,o) => 0x10000 * 0x10000 * g32(b, o) + g32(b, o + 4)
 	const gstr = (b,o,n) => String.fromCharCode.apply(String, b.subarray(o, o + n))
 
 	var dir = []
@@ -76,7 +76,7 @@ function font_info(body, tables) {
 	if (tab) {
 		var strings = {}
 		for (var iter = 0; iter < 2; iter++) {
-			var end = 6 + 12*g16(tab, 2)
+			var end = 6 + 12 * g16(tab, 2)
 			for (var pos = 6; pos < end; pos += 12) {
 				var [ pe, lang, id ] = [ g32(tab, pos), g16(tab, pos + 4), g16(tab, pos + 6) ]
 
@@ -121,7 +121,7 @@ function font_info(body, tables) {
 
 	var tab = tables.cmap
 	var cmap_ofs = []
-	var end = 4 + 8*g16(tab, 2)
+	var end = 4 + 8 * g16(tab, 2)
 	for (var pos = 4; pos < end; pos += 8) {
 		var pe = g32(tab, pos)
 		if (pe == 0x00030001 || pe == 0x0003000a) {
