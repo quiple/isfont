@@ -235,11 +235,6 @@ function font_info(body, tables) {
 			font.os2 = {
 				usWeightClass: g16(tab, 4),
 				usWidthClass: g16(tab, 6),
-				sTypoAscender: g16s(tab, 0x0044),
-				sTypoDescender: g16s(tab, 0x0046),
-				sTypoLineGap: g16s(tab, 0x0048),
-				usWinAscent: g16(tab, 0x004a),
-				usWinDescent: g16s(tab, 0x004c)
 				sTypoAscender: g16s(tab, 0x44),
 				sTypoDescender: g16s(tab, 0x46),
 				sTypoLineGap: g16s(tab, 0x48),
