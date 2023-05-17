@@ -15,6 +15,7 @@ if (typeof exports == 'object') {
 */
 
 function font_info(body, tables) {
+  const g8 = (b, o) => b[o] << 4 | b[o]
   const g16 = (b, o) => b[o] << 8 | b[o + 1]
   const g16s = (b, o) => (g16(b, o) ^ 0x8000) - 0x8000
   const g32 = (b, o) => (g16(b, o) << 16 | g16(b, o + 2)) >>> 0
@@ -232,14 +233,71 @@ function font_info(body, tables) {
 
     var tab = tables['OS/2']
     if (tab) {
+      var v = g16s(tab, 0);
       font.os2 = {
+        version: v,
+        xAvgCharWidth: g16s(tab, 2),
         usWeightClass: g16s(tab, 4),
         usWidthClass: g16s(tab, 6),
+        fsType: g16s(tab, 8),
+        ySubscriptXSize: g16s(tab, 0x0a),
+        ySubscriptYSize: g16s(tab, 0x0c),
+        ySubscriptXOffset: g16s(tab, 0x0e),
+        ySubscriptYOffset: g16s(tab, 0x10),
+        ySuperscriptXSize: g16s(tab, 0x12),
+        ySuperscriptYSize: g16s(tab, 0x14),
+        ySuperscriptXOffset: g16s(tab, 0x16),
+        ySuperscriptYOffset: g16s(tab, 0x18),
+        yStrikeoutSize: g16s(tab, 0x1a),
+        yStrikeoutPosition: g16s(tab, 0x1c),
+        sFamilyClass: g16s(tab, 0x1e),
+        panoseFamilyType: g8(tab, 0x20),
+        panoseSerifStyle: g8(tab, 0x21),
+        panoseWeight: g8(tab, 0x22),
+        panoseProportion: g8(tab, 0x23),
+        panoseContrast: g8(tab, 0x24),
+        panoseStrokeVariation: g8(tab, 0x25),
+        panoseArmStyle: g8(tab, 0x26),
+        panoseLetterform: g8(tab, 0x27),
+        panoseMidline: g8(tab, 0x28),
+        panoseXHeight: g8(tab, 0x29),
+        ulUnicodeRange1: g32(tab, 0x2a),
+        ulUnicodeRange2: g32(tab, 0x2e),
+        ulUnicodeRange3: g32(tab, 0x32),
+        ulUnicodeRange4: g32(tab, 0x36),
+        achVendID: gstr(tab, 0x3a, 4),
+        fsSelection: g16s(tab, 0x3e),
+        usFirstCharIndex: g16s(tab, 0x40),
+        usLastCharIndex: g16s(tab, 0x42),
         sTypoAscender: g16s(tab, 0x44),
         sTypoDescender: g16s(tab, 0x46),
         sTypoLineGap: g16s(tab, 0x48),
-        usWinAscent: g16(tab, 0x4a),
+        usWinAscent: g16s(tab, 0x4a),
         usWinDescent: g16s(tab, 0x4c)
+      }
+      if (v >= 1) {
+        font.os21 = {
+          ulCodePageRange1: g32(tab, 0x4e),
+          ulCodePageRange2: g32(tab, 0x52)
+        }
+        font.os2 = { ...font.os2, ...font.os21 }
+      }
+      if (v >= 4) {
+        font.os24 = {
+          sxHeight: g16s(tab, 0x56),
+          sCapHeight: g16s(tab, 0x58),
+          usDefaultChar: g16s(tab, 0x5a),
+          usBreakChar: g16s(tab, 0x5c),
+          usMaxContext: g16s(tab, 0x5e)
+        }
+        font.os2 = { ...font.os2, ...font.os24 }
+      }
+      if (v >= 5) {
+        font.os25 = {
+          usLowerOpticalPointSize: g16s(tab, 0x60),
+          usUpperOpticalPointSize: g16s(tab, 0x62)
+        }
+        font.os2 = { ...font.os2, ...font.os25 }
       }
     }
   }

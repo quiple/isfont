@@ -149,7 +149,13 @@ layout: default
             GPOS: false,
             GSUB: false,
             hhea: true,
-            'OS/2': false
+            // 추가 내용 시작
+            'OS/2': false,
+            HVAR: false,
+            MVAR: false,
+            avar: false,
+            fvar: false
+            // 추가 내용 끝
           })
         } catch (x) {
           out.innerHTML = ''
@@ -189,7 +195,9 @@ layout: default
     }
 
     function list_font(font, file) {
-      var { name, ranges, strings, features, created, modified } = font
+      // 추가 내용 시작
+      var { name, ranges, strings, features, created, modified, GPOS, GSUB, hhea, os2 } = font
+      // 추가 내용 끝
 
       main.innerHTML = '<h2></h2><table id=t></table><dl compact></dl><p>'
       var [title, table, names, summ] = main.children
@@ -302,6 +310,19 @@ layout: default
         // 추가 내용 끝
         insert(main, e, summ)
       }
+
+      // 추가 내용 시작
+      if (os2) {
+        for (field in os2) {
+          var dt = element('dt');
+          var dd = element('dd');
+          dt.textContent = 'OS/2 ' + field;
+          insert(get('main dl'), dt, get('main dt[title="0"]'));
+          dd.textContent = os2[field];
+          insert(get('main dl'), dd, get('main dt[title="0"]'));
+        }
+      }
+      // 추가 내용 끝
 
       var [dc, dm] = [created, modified].map(t => t && t.toISOString().substr(0, 10))
       var s = font.type
