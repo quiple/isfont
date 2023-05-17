@@ -86,8 +86,8 @@ function font_info(body, tables) {
         // 00010000 *    : 1
 
         var priority =
-          pe == 0x00010000 ? 1 :
-            pe == 0x00030001 ? (lang == 0x0409 ? 3 : 2) : 0
+          pe == 0x10000 ? 1 :
+            pe == 0x30001 ? (lang == 0x409 ? 3 : 2) : 0
 
         if (iter == 0) {
           if (priority > (strings[id] || 0))
@@ -96,7 +96,7 @@ function font_info(body, tables) {
           if (priority == strings[id]) {
             var ofs = g16(tab, 4) + g16(tab, pos + 10)
             var size = g16(tab, pos + 8)
-            strings[id] = new TextDecoder(pe == 0x00030001 ? 'utf-16be' : 'macintosh').decode(tab.slice(ofs, ofs + size))
+            strings[id] = new TextDecoder(pe == 0x30001 ? 'utf-16be' : 'macintosh').decode(tab.slice(ofs, ofs + size))
           }
         }
       }
@@ -124,7 +124,7 @@ function font_info(body, tables) {
   var end = 4 + 8 * g16(tab, 2)
   for (var pos = 4; pos < end; pos += 8) {
     var pe = g32(tab, pos)
-    if (pe == 0x00030001 || pe == 0x0003000a) {
+    if (pe == 0x30001 || pe == 0x3000a) {
       var offset = g32(tab, pos + 4)
       var format = g16(tab, offset)
       cmap_ofs[format] = offset
@@ -156,7 +156,7 @@ function font_info(body, tables) {
     for (; count--; pos += 2) {
       var [last, first, delta, ofs] = [g16(tab, pos), g16(tab, pos + o_start), g16(tab, pos + o_delta), g16(tab, pos + o_ofs)]
       if (!ofs) {
-        var i = -delta & 0xFFFF
+        var i = -delta & 0xffff
         if (i >= first && i <= last) {
           add_range(first, i - 1)
           first = i + 1
@@ -165,7 +165,7 @@ function font_info(body, tables) {
         var array_pos = pos + o_ofs + ofs
         for (var i = first; i <= last; i++) {
           var v = g16(tab, array_pos)
-          if (!v || !(v + delta & 0xFFFF)) {
+          if (!v || !(v + delta & 0xffff)) {
             add_range(first, i - 1)
             first = i + 1
           }
@@ -206,7 +206,7 @@ function font_info(body, tables) {
 
   var tab = tables.GPOS
   if (tab) {
-    if (g16(tab, 0) == 0x0001) {
+    if (g16(tab, 0) == 1) {
       var featureListOffset = g16(tab, 6)
       if (featureListOffset)
         parse_feature_list(tab, featureListOffset)
@@ -215,7 +215,7 @@ function font_info(body, tables) {
 
   var tab = tables.GSUB
   if (tab) {
-    if (g16(tab, 0) == 0x0001) {
+    if (g16(tab, 0) == 1) {
       var featureListOffset = g16(tab, 6)
       if (featureListOffset)
         parse_feature_list(tab, featureListOffset)
