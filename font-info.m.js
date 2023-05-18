@@ -94,6 +94,46 @@ function unicodeRange2(arr) {
   return arr.join(', ');
 }
 
+function unicodeRange3(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '0': arr[i] = 'Combining Half Marks'; break;
+      case '1': arr[i] = 'Vertical Forms'; break;
+      case '2': arr[i] = 'Small Form Variants'; break;
+      case '3': arr[i] = 'Arabic Presentation Forms-B'; break;
+      case '4': arr[i] = 'Halfwidth And Fullwidth Forms'; break;
+      case '5': arr[i] = 'Specials'; break;
+      case '6': arr[i] = 'Tibetan'; break;
+      case '7': arr[i] = 'Syriac'; break;
+      case '8': arr[i] = 'Thaana'; break;
+      case '9': arr[i] = 'Sinhala'; break;
+      case '10': arr[i] = 'Myanmar'; break;
+      case '11': arr[i] = 'Ethiopic'; break;
+      case '12': arr[i] = 'Cherokee'; break;
+      case '13': arr[i] = 'Unified Canadian Aboriginal Syllabics'; break;
+      case '14': arr[i] = 'Ogham'; break;
+      case '15': arr[i] = 'Runic'; break;
+      case '16': arr[i] = 'Khmer'; break;
+      case '17': arr[i] = 'Mongolian'; break;
+      case '18': arr[i] = 'Braille Patterns'; break;
+      case '19': arr[i] = 'Yi Syllables'; break;
+      case '20': arr[i] = 'Tagalog'; break;
+      case '21': arr[i] = 'Old Italic'; break;
+      case '22': arr[i] = 'Gothic'; break;
+      case '23': arr[i] = 'Deseret'; break;
+      case '24': arr[i] = 'Byzantine Musical Symbols'; break;
+      case '25': arr[i] = 'Mathematical Alphanumeric Symbols'; break;
+      case '26': arr[i] = 'Private Use (plane 15)'; break;
+      case '27': arr[i] = 'Variation Selectors'; break;
+      case '28': arr[i] = 'Tags'; break;
+      case '29': arr[i] = 'Limbu'; break;
+      case '30': arr[i] = 'Tai Le'; break;
+      case '31': arr[i] = 'New Tai Lue'; break;
+    }
+  }
+  return arr.join(', ');
+}
+
 function font_info(body, tables) {
   // 추가 내용 시작
   const uint8 = (b, o) => b[o];
@@ -349,7 +389,7 @@ function font_info(body, tables) {
         panoseXHeight: uint8(tab, 0x29),
         ulUnicodeRange1: unicodeRange1(range32(tab, 0x2a)),
         ulUnicodeRange2: unicodeRange2(range32(tab, 0x2e)),
-        ulUnicodeRange3: range32(tab, 0x32),
+        ulUnicodeRange3: unicodeRange3(range32(tab, 0x32)),
         ulUnicodeRange4: range32(tab, 0x36),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
