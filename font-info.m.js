@@ -22,7 +22,7 @@ function font_info(body, tables) {
   const int16 = (b, o) => (uint16(b, o) ^ 0x8000) - 0x8000;
   const uint32 = (b, o) => (uint16(b, o) << 16 | uint16(b, o + 2)) >>> 0;
   const int32 = (b, o) => uint16(b, o) << 16 | uint16(b, o + 2);
-  const range32 = (b, o) => uint32(b, o);
+  const range32 = (b, o) => uint32(b, o).toString(2).padStart(32, '0');
   // 추가 내용 끝
   const g64 = (b, o) => 0x10000 * 0x10000 * uint32(b, o) + uint32(b, o + 4)
   const gstr = (b, o, n) => String.fromCharCode.apply(String, b.subarray(o, o + n))
