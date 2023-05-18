@@ -316,9 +316,9 @@ layout: default
         for (field in os2) {
           var dt = element('dt');
           var dd = element('dd');
-          dt.textContent = 'OS/2 ' + field;
+          dt.innerHTML = 'OS/2 ' + field;
           insert(get('main dl'), dt, get('main dt[title="0"]'));
-          dd.textContent = os2[field];
+          dd.innerHTML = os2[field];
           insert(get('main dl'), dd, get('main dt[title="0"]'));
         }
       }

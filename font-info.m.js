@@ -51,7 +51,7 @@ function unicodeRange1(arr) {
       case '31': arr[i] = 'General / Supplemental Punctuation'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function unicodeRange2(arr) {
@@ -91,7 +91,7 @@ function unicodeRange2(arr) {
       case '31': arr[i] = 'Arabic Presentation Forms-A'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function unicodeRange3(arr) {
@@ -131,7 +131,7 @@ function unicodeRange3(arr) {
       case '31': arr[i] = 'New Tai Lue'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function unicodeRange4(arr) {
@@ -166,7 +166,7 @@ function unicodeRange4(arr) {
       case '26': arr[i] = 'Domino / Mahjong Tiles'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function codePageRange1(arr) {
@@ -192,7 +192,7 @@ function codePageRange1(arr) {
       case '31': arr[i] = 'Symbol Character Set'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function codePageRange2(arr) {
@@ -216,7 +216,7 @@ function codePageRange2(arr) {
       case '31': arr[i] = 'US'; break;
     }
   }
-  return arr.join(', ');
+  return arr.join('<br>');
 }
 
 function font_info(body, tables) {
@@ -472,12 +472,12 @@ function font_info(body, tables) {
         panoseLetterform: uint8(tab, 0x27),
         panoseMidline: uint8(tab, 0x28),
         panoseXHeight: uint8(tab, 0x29),
-        ulUnicodeRange: (
-          unicodeRange1(range32(tab, 0x2a)) + ', ' +
-          unicodeRange2(range32(tab, 0x2e)) + ', ' +
-          unicodeRange3(range32(tab, 0x32)) + ', ' +
+        ulUnicodeRange: [
+          unicodeRange1(range32(tab, 0x2a)),
+          unicodeRange2(range32(tab, 0x2e)),
+          unicodeRange3(range32(tab, 0x32)),
           unicodeRange4(range32(tab, 0x36))
-        ).replace(/, $/, ''),
+        ].join('<br>'),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
         usFirstCharIndex: uint16(tab, 0x40),
@@ -490,7 +490,7 @@ function font_info(body, tables) {
       }
       if (v >= 1) {
         font.os21 = {
-          ulCodePageRange: (codePageRange1(range32(tab, 0x4e)) + ', ' + codePageRange2(range32(tab, 0x52))).replace(/, $/, '')
+          ulCodePageRange: [codePageRange1(range32(tab, 0x4e)), codePageRange2(range32(tab, 0x52))].join('<br>')
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
