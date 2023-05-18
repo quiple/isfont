@@ -169,6 +169,56 @@ function unicodeRange4(arr) {
   return arr.join(', ');
 }
 
+function codePageRange1(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '0': arr[i] = 'Latin 1'; break;
+      case '1': arr[i] = 'Latin 2: Eastern Europe'; break;
+      case '2': arr[i] = 'Cyrillic'; break;
+      case '3': arr[i] = 'Greek'; break;
+      case '4': arr[i] = 'Turkish'; break;
+      case '5': arr[i] = 'Hebrew'; break;
+      case '6': arr[i] = 'Arabic'; break;
+      case '7': arr[i] = 'Windows Baltic'; break;
+      case '8': arr[i] = 'Vietnamese'; break;
+      case '16': arr[i] = 'Thai'; break;
+      case '17': arr[i] = 'JIS / Japan'; break;
+      case '18': arr[i] = 'Chinese: Simplified chars — PRC and Singapore'; break;
+      case '19': arr[i] = 'Korean Wansung'; break;
+      case '20': arr[i] = 'Chinese: Traditional chars — Taiwan and Hong Kong'; break;
+      case '21': arr[i] = 'Korean Johab'; break;
+      case '29': arr[i] = 'Macintosh Character Set (US Roman)'; break;
+      case '30': arr[i] = 'OEM Character Set'; break;
+      case '31': arr[i] = 'Symbol Character Set'; break;
+    }
+  }
+  return arr.join(', ');
+}
+
+function codePageRange2(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '16': arr[i] = 'IBM Greek'; break;
+      case '17': arr[i] = 'MS-DOS Russian'; break;
+      case '18': arr[i] = 'MS-DOS Nordic'; break;
+      case '19': arr[i] = 'Arabic'; break;
+      case '20': arr[i] = 'MS-DOS Canadian French'; break;
+      case '21': arr[i] = 'Hebrew'; break;
+      case '22': arr[i] = 'MS-DOS Icelandic'; break;
+      case '23': arr[i] = 'MS-DOS Portuguese'; break;
+      case '24': arr[i] = 'IBM Turkish'; break;
+      case '25': arr[i] = 'IBM Cyrillic; primarily Russian'; break;
+      case '26': arr[i] = 'Latin 2'; break;
+      case '27': arr[i] = 'MS-DOS Baltic'; break;
+      case '28': arr[i] = 'Greek; former 437 G'; break;
+      case '29': arr[i] = 'Arabic; ASMO 708'; break;
+      case '30': arr[i] = 'WE / Latin 1'; break;
+      case '31': arr[i] = 'US'; break;
+    }
+  }
+  return arr.join(', ');
+}
+
 function font_info(body, tables) {
   // 추가 내용 시작
   const uint8 = (b, o) => b[o];
@@ -438,8 +488,8 @@ function font_info(body, tables) {
       }
       if (v >= 1) {
         font.os21 = {
-          ulCodePageRange1: range32(tab, 0x4e),
-          ulCodePageRange2: range32(tab, 0x52)
+          ulCodePageRange1: codePageRange1(range32(tab, 0x4e)),
+          ulCodePageRange2: codePageRange2(range32(tab, 0x52))
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
