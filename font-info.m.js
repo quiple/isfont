@@ -57,7 +57,7 @@ function unicodeRange1(arr) {
 function unicodeRange2(arr) {
   for (let i = 0; i < arr.length; i++) {
     switch (arr[i]) {
-      case '0': arr[i] = 'Superscripts And Subscripts'; break;
+      case '0': arr[i] = 'Superscripts and Subscripts'; break;
       case '1': arr[i] = 'Currency Symbols'; break;
       case '2': arr[i] = 'Combining Diacritical Marks For Symbols'; break;
       case '3': arr[i] = 'Letterlike Symbols'; break;
@@ -73,13 +73,13 @@ function unicodeRange2(arr) {
       case '13': arr[i] = 'Geometric Shapes'; break;
       case '14': arr[i] = 'Miscellaneous Symbols'; break;
       case '15': arr[i] = 'Dingbats'; break;
-      case '16': arr[i] = 'CJK Symbols And Punctuation'; break;
+      case '16': arr[i] = 'CJK Symbols and Punctuation'; break;
       case '17': arr[i] = 'Hiragana'; break;
       case '18': arr[i] = 'Katakana (& Phonetic Extensions)'; break;
       case '19': arr[i] = 'Bopomofo (& Extended)'; break;
       case '20': arr[i] = 'Hangul Compatibility Jamo'; break;
       case '21': arr[i] = 'Phags-pa'; break;
-      case '22': arr[i] = 'Enclosed CJK Letters And Months'; break;
+      case '22': arr[i] = 'Enclosed CJK Letters and Months'; break;
       case '23': arr[i] = 'CJK Compatibility'; break;
       case '24': arr[i] = 'Hangul Syllables'; break;
       case '25': arr[i] = 'Non-Plane 0'; break;
@@ -101,7 +101,7 @@ function unicodeRange3(arr) {
       case '1': arr[i] = 'Vertical Forms'; break;
       case '2': arr[i] = 'Small Form Variants'; break;
       case '3': arr[i] = 'Arabic Presentation Forms-B'; break;
-      case '4': arr[i] = 'Halfwidth And Fullwidth Forms'; break;
+      case '4': arr[i] = 'Halfwidth and Fullwidth Forms'; break;
       case '5': arr[i] = 'Specials'; break;
       case '6': arr[i] = 'Tibetan'; break;
       case '7': arr[i] = 'Syriac'; break;
