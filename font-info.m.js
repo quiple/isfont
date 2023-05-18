@@ -472,10 +472,12 @@ function font_info(body, tables) {
         panoseLetterform: uint8(tab, 0x27),
         panoseMidline: uint8(tab, 0x28),
         panoseXHeight: uint8(tab, 0x29),
-        ulUnicodeRange1: unicodeRange1(range32(tab, 0x2a)),
-        ulUnicodeRange2: unicodeRange2(range32(tab, 0x2e)),
-        ulUnicodeRange3: unicodeRange3(range32(tab, 0x32)),
-        ulUnicodeRange4: unicodeRange4(range32(tab, 0x36)),
+        ulUnicodeRange: (
+          unicodeRange1(range32(tab, 0x2a)) + ', ' +
+          unicodeRange2(range32(tab, 0x2e)) + ', ' +
+          unicodeRange3(range32(tab, 0x32)) + ', ' +
+          unicodeRange4(range32(tab, 0x36))
+        ).replace(/, $/, ''),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
         usFirstCharIndex: uint16(tab, 0x40),
@@ -488,8 +490,7 @@ function font_info(body, tables) {
       }
       if (v >= 1) {
         font.os21 = {
-          ulCodePageRange1: codePageRange1(range32(tab, 0x4e)),
-          ulCodePageRange2: codePageRange2(range32(tab, 0x52))
+          ulCodePageRange: (codePageRange1(range32(tab, 0x4e)) + ', ' + codePageRange2(range32(tab, 0x52))).replace(/, $/, '')
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
