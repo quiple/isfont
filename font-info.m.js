@@ -16,13 +16,13 @@ if (typeof exports == 'object') {
 
 function font_info(body, tables) {
   // 추가 내용 시작
-  const range32 = (b) => Object.keys(Object.fromEntries(Object.entries(Object.assign({}, b.toString(2).padStart(32, '0').split(''))).filter(([, x]) => x == 1)));
   const uint8 = (b, o) => b[o];
   const int8 = (b, o) => (uint8(b, o) ^ 0x80) - 0x80;
   const uint16 = (b, o) => b[o] << 8 | b[o + 1];
   const int16 = (b, o) => (uint16(b, o) ^ 0x8000) - 0x8000;
   const uint32 = (b, o) => (uint16(b, o) << 16 | uint16(b, o + 2)) >>> 0;
   const int32 = (b, o) => uint16(b, o) << 16 | uint16(b, o + 2);
+  const range32 = (b, o) => uint32(b, o);
   // 추가 내용 끝
   const g64 = (b, o) => 0x10000 * 0x10000 * uint32(b, o) + uint32(b, o + 4)
   const gstr = (b, o, n) => String.fromCharCode.apply(String, b.subarray(o, o + n))
@@ -267,10 +267,10 @@ function font_info(body, tables) {
         panoseLetterform: uint8(tab, 0x27),
         panoseMidline: uint8(tab, 0x28),
         panoseXHeight: uint8(tab, 0x29),
-        ulUnicodeRange1: range32(uint32(tab, 0x2a)),
-        ulUnicodeRange2: range32(uint32(tab, 0x2e)),
-        ulUnicodeRange3: range32(uint32(tab, 0x32)),
-        ulUnicodeRange4: range32(uint32(tab, 0x36)),
+        ulUnicodeRange1: range32(tab, 0x2a),
+        ulUnicodeRange2: range32(tab, 0x2e),
+        ulUnicodeRange3: range32(tab, 0x32),
+        ulUnicodeRange4: range32(tab, 0x36),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
         usFirstCharIndex: uint16(tab, 0x40),
@@ -283,8 +283,8 @@ function font_info(body, tables) {
       }
       if (v >= 1) {
         font.os21 = {
-          ulCodePageRange1: uint32(tab, 0x4e),
-          ulCodePageRange2: uint32(tab, 0x52)
+          ulCodePageRange1: range32(tab, 0x4e),
+          ulCodePageRange2: range32(tab, 0x52)
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
