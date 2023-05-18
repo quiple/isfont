@@ -240,12 +240,6 @@ function font_info(body, tables) {
       // 추가 내용 시작
       var v = uint16(tab, 0);
       font.os2 = {
-        int8: int8(tab, 0x10),
-        uint8: uint8(tab, 0x10),
-        int16: int16(tab, 0x10),
-        uint16: uint16(tab, 0x10),
-        int32: int32(tab, 0x10),
-        uint32: uint32(tab, 0x10),
         version: v,
         xAvgCharWidth: int16(tab, 2),
         usWeightClass: uint16(tab, 4),
