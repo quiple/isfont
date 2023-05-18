@@ -51,7 +51,7 @@ function unicodeRange1(arr) {
       case '31': arr[i] = 'General Punctuation'; break;
     }
   }
-  return arr;
+  return arr.join(', ');
 }
 
 function unicodeRange2(arr) {
@@ -91,7 +91,7 @@ function unicodeRange2(arr) {
       case '31': arr[i] = 'Arabic Presentation Forms-A'; break;
     }
   }
-  return arr;
+  return arr.join(', ');
 }
 
 function font_info(body, tables) {
