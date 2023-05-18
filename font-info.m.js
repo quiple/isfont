@@ -49,7 +49,46 @@ function unicodeRange1(arr) {
       case '29': arr[i] = 'Latin Extended Additional'; break;
       case '30': arr[i] = 'Greek Extended'; break;
       case '31': arr[i] = 'General Punctuation'; break;
-      default: break;
+    }
+  }
+  return arr;
+}
+
+function unicodeRange2(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '0': arr[i] = 'Superscripts And Subscripts'; break;
+      case '1': arr[i] = 'Currency Symbols'; break;
+      case '2': arr[i] = 'Combining Diacritical Marks For Symbols'; break;
+      case '3': arr[i] = 'Letterlike Symbols'; break;
+      case '4': arr[i] = 'Number Forms'; break;
+      case '5': arr[i] = 'Arrows'; break;
+      case '6': arr[i] = 'Mathematical Operators'; break;
+      case '7': arr[i] = 'Miscellaneous Technical'; break;
+      case '8': arr[i] = 'Control Pictures'; break;
+      case '9': arr[i] = 'Optical Character Recognition'; break;
+      case '10': arr[i] = 'Enclosed Alphanumerics'; break;
+      case '11': arr[i] = 'Box Drawing'; break;
+      case '12': arr[i] = 'Block Elements'; break;
+      case '13': arr[i] = 'Geometric Shapes'; break;
+      case '14': arr[i] = 'Miscellaneous Symbols'; break;
+      case '15': arr[i] = 'Dingbats'; break;
+      case '16': arr[i] = 'CJK Symbols And Punctuation'; break;
+      case '17': arr[i] = 'Hiragana'; break;
+      case '18': arr[i] = 'Katakana'; break;
+      case '19': arr[i] = 'Bopomofo'; break;
+      case '20': arr[i] = 'Hangul Compatibility Jamo'; break;
+      case '21': arr[i] = 'Phags-pa'; break;
+      case '22': arr[i] = 'Enclosed CJK Letters And Months'; break;
+      case '23': arr[i] = 'CJK Compatibility'; break;
+      case '24': arr[i] = 'Hangul Syllables'; break;
+      case '25': arr[i] = 'Non-Plane 0'; break;
+      case '26': arr[i] = 'Phoenician'; break;
+      case '27': arr[i] = 'CJK Unified Ideographs'; break;
+      case '28': arr[i] = 'Private Use Area (plane 0)'; break;
+      case '29': arr[i] = 'CJK Strokes'; break;
+      case '30': arr[i] = 'Alphabetic Presentation Forms'; break;
+      case '31': arr[i] = 'Arabic Presentation Forms-A'; break;
     }
   }
   return arr;
@@ -309,7 +348,7 @@ function font_info(body, tables) {
         panoseMidline: uint8(tab, 0x28),
         panoseXHeight: uint8(tab, 0x29),
         ulUnicodeRange1: unicodeRange1(range32(tab, 0x2a)),
-        ulUnicodeRange2: range32(tab, 0x2e),
+        ulUnicodeRange2: unicodeRange2(range32(tab, 0x2e)),
         ulUnicodeRange3: range32(tab, 0x32),
         ulUnicodeRange4: range32(tab, 0x36),
         achVendID: gstr(tab, 0x3a, 4),
