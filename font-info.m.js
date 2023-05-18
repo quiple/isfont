@@ -16,17 +16,14 @@ if (typeof exports == 'object') {
 
 function font_info(body, tables) {
   // 추가 내용 시작
-  const uint8 = (b, o) => b.subarray(o, o + 1);
-  const int8 = (b, o) => uint8(b, o) < 0x80 ? uint8(b, o) : uint8(b, o) - 0x100;
-  const uint16 = (b, o) => b.subarray(o, o + 2)[0] * 0x100 + b.subarray(o, o + 2)[1];
-  const int16 = (b, o) => uint16(b, o) < 0x8000 ? uint16(b, o) : uint16(b, o) - 0x10000;
-  const uint32 = (b, o) => b.subarray(o, o + 4)[0] * 0x1000000 + b.subarray(o, o + 4)[1] * 0x10000 + b.subarray(o, o + 4)[2] * 0x100 + b.subarray(o, o + 4)[3];
-  const int32 = (b, o) => uint32(b, o) < 0x80000000 ? uint32(b, o) : uint32(b, o) - 0x100000000;
+  const uint8 = (b, o) => b[o];
+  const int8 = (b, o) => (uint8(b, o) ^ 0x80) - 0x80;
+  const uint16 = (b, o) => b[o] << 8 | b[o + 1];
+  const int16 = (b, o) => (uint16(b, o) ^ 0x8000) - 0x8000;
+  const uint32 = (b, o) => (uint16(b, o) << 16 | uint16(b, o + 2)) >>> 0;
+  const int32 = (b, o) => uint16(b, o) << 16 | uint16(b, o + 2);
   // 추가 내용 끝
-  const g16 = (b, o) => b[o] << 8 | b[o + 1]
-  const g16s = (b, o) => (g16(b, o) ^ 0x8000) - 0x8000
-  const g32 = (b, o) => (g16(b, o) << 16 | g16(b, o + 2)) >>> 0
-  const g64 = (b, o) => 0x10000 * 0x10000 * g32(b, o) + g32(b, o + 4)
+  const g64 = (b, o) => 0x10000 * 0x10000 * uint32(b, o) + uint32(b, o + 4)
   const gstr = (b, o, n) => String.fromCharCode.apply(String, b.subarray(o, o + n))
 
   var dir = []
@@ -44,19 +41,19 @@ function font_info(body, tables) {
     throw 'Not a font'
 
   var [count, pos, step, o_ofs, o_size, o_len] = dir
-  count = g16(body, count)
+  count = uint16(body, count)
   if (!count)
     throw 'Bad font'
   do {
     var id = gstr(body, pos, 4)
     if (id in tables) {
-      var ofs = g32(body, pos + o_ofs)
-      var size = g32(body, pos + o_size)
+      var ofs = uint32(body, pos + o_ofs)
+      var size = uint32(body, pos + o_size)
       if (ofs + size > body.length)
         return 'Font truncated'
       var data = body.slice(ofs, ofs + size)
       if (o_len) {
-        var len = g32(body, pos + o_len)
+        var len = uint32(body, pos + o_len)
         if (size < len) {
           var zdata = data
           var data = new Uint8Array(len)
@@ -84,9 +81,9 @@ function font_info(body, tables) {
   if (tab) {
     var strings = {}
     for (var iter = 0; iter < 2; iter++) {
-      var end = 6 + 12 * g16(tab, 2)
+      var end = 6 + 12 * uint16(tab, 2)
       for (var pos = 6; pos < end; pos += 12) {
-        var [pe, lang, id] = [g32(tab, pos), g16(tab, pos + 4), g16(tab, pos + 6)]
+        var [pe, lang, id] = [uint32(tab, pos), uint16(tab, pos + 4), uint16(tab, pos + 6)]
 
         // plat enc lang : priority
         // 00030001 0409 : 3 (we prefer English)
@@ -102,8 +99,8 @@ function font_info(body, tables) {
             strings[id] = priority
         } else {
           if (priority == strings[id]) {
-            var ofs = g16(tab, 4) + g16(tab, pos + 10)
-            var size = g16(tab, pos + 8)
+            var ofs = uint16(tab, 4) + uint16(tab, pos + 10)
+            var size = uint16(tab, pos + 8)
             strings[id] = new TextDecoder(pe == 0x30001 ? 'utf-16be' : 'macintosh').decode(tab.slice(ofs, ofs + size))
           }
         }
@@ -120,21 +117,21 @@ function font_info(body, tables) {
   }
 
   var tab = tables.head
-  font.em = g16(tab, 18)
+  font.em = uint16(tab, 18)
   read_date('created', 20)
   read_date('modified', 28)
 
   var tab = tables.maxp
-  font.num_glyphs = g16(tab, 4)
+  font.num_glyphs = uint16(tab, 4)
 
   var tab = tables.cmap
   var cmap_ofs = []
-  var end = 4 + 8 * g16(tab, 2)
+  var end = 4 + 8 * uint16(tab, 2)
   for (var pos = 4; pos < end; pos += 8) {
-    var pe = g32(tab, pos)
+    var pe = uint32(tab, pos)
     if (pe == 0x30001 || pe == 0x3000a) {
-      var offset = g32(tab, pos + 4)
-      var format = g16(tab, offset)
+      var offset = uint32(tab, pos + 4)
+      var format = uint16(tab, offset)
       cmap_ofs[format] = offset
     }
   }
@@ -155,14 +152,14 @@ function font_info(body, tables) {
   var pos = cmap_ofs[4]
   if (pos) {
     ranges = []
-    var v = g16(tab, pos + 6)
+    var v = uint16(tab, pos + 6)
     var count = v >> 1
     var o_start = 2 + v
     var o_delta = o_start + v
     var o_ofs = o_delta + v
     pos += 14
     for (; count--; pos += 2) {
-      var [last, first, delta, ofs] = [g16(tab, pos), g16(tab, pos + o_start), g16(tab, pos + o_delta), g16(tab, pos + o_ofs)]
+      var [last, first, delta, ofs] = [uint16(tab, pos), uint16(tab, pos + o_start), uint16(tab, pos + o_delta), uint16(tab, pos + o_ofs)]
       if (!ofs) {
         var i = -delta & 0xffff
         if (i >= first && i <= last) {
@@ -172,7 +169,7 @@ function font_info(body, tables) {
       } else {
         var array_pos = pos + o_ofs + ofs
         for (var i = first; i <= last; i++) {
-          var v = g16(tab, array_pos)
+          var v = uint16(tab, array_pos)
           if (!v || !(v + delta & 0xffff)) {
             add_range(first, i - 1)
             first = i + 1
@@ -187,10 +184,10 @@ function font_info(body, tables) {
   var pos = cmap_ofs[12]
   if (pos) {
     ranges = ranges || []
-    var count = g32(tab, pos + 12)
+    var count = uint32(tab, pos + 12)
     pos += 16
     for (; count--; pos += 12) {
-      var [first, last] = [g32(tab, pos), g32(tab, pos + 4)]
+      var [first, last] = [uint32(tab, pos), uint32(tab, pos + 4)]
       if (cmap_ofs[4] && first < 0x10000)
         first = 0x10000
       add_range(first, last)
@@ -203,7 +200,7 @@ function font_info(body, tables) {
 
   const parse_feature_list = (tab, pos) => {
     features = features || {}
-    var featureCount = g16(tab, pos)
+    var featureCount = uint16(tab, pos)
     pos += 2
     for (var i = 0; i < featureCount; i++) {
       var featureTag = gstr(tab, pos, 4)
@@ -214,8 +211,8 @@ function font_info(body, tables) {
 
   var tab = tables.GPOS
   if (tab) {
-    if (g16(tab, 0) == 1) {
-      var featureListOffset = g16(tab, 6)
+    if (uint16(tab, 0) == 1) {
+      var featureListOffset = uint16(tab, 6)
       if (featureListOffset)
         parse_feature_list(tab, featureListOffset)
     }
@@ -223,8 +220,8 @@ function font_info(body, tables) {
 
   var tab = tables.GSUB
   if (tab) {
-    if (g16(tab, 0) == 1) {
-      var featureListOffset = g16(tab, 6)
+    if (uint16(tab, 0) == 1) {
+      var featureListOffset = uint16(tab, 6)
       if (featureListOffset)
         parse_feature_list(tab, featureListOffset)
     }
@@ -233,9 +230,9 @@ function font_info(body, tables) {
   var tab = tables.hhea
   if (tab) {
     font.hhea = {
-      ascender: g16s(tab, 4),
-      descender: g16s(tab, 6),
-      lineGap: g16s(tab, 8)
+      ascender: int16(tab, 4),
+      descender: int16(tab, 6),
+      lineGap: int16(tab, 8)
     }
 
     var tab = tables['OS/2']
@@ -243,6 +240,12 @@ function font_info(body, tables) {
       // 추가 내용 시작
       var v = uint16(tab, 0);
       font.os2 = {
+        int8: int8(tab, 0x10),
+        uint8: uint8(tab, 0x10),
+        int16: int16(tab, 0x10),
+        uint16: uint16(tab, 0x10),
+        int32: int32(tab, 0x10),
+        uint32: uint32(tab, 0x10),
         version: v,
         xAvgCharWidth: int16(tab, 2),
         usWeightClass: uint16(tab, 4),
