@@ -14,6 +14,47 @@ if (typeof exports == 'object') {
  eg. tables = { head: true, maxp: true, cmap: true, name: true, GPOS: false, GSUB: false }
 */
 
+function unicodeRange1(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '0': arr[i] = 'Basic Latin'; break;
+      case '1': arr[i] = 'Latin-1 Supplement'; break;
+      case '2': arr[i] = 'Latin Extended-A'; break;
+      case '3': arr[i] = 'Latin Extended-B'; break;
+      case '4': arr[i] = 'IPA Extensions'; break;
+      case '5': arr[i] = 'Spacing Modifier Letters'; break;
+      case '6': arr[i] = 'Combining Diacritical Marks'; break;
+      case '7': arr[i] = 'Greek and Coptic'; break;
+      case '8': arr[i] = 'Coptic'; break;
+      case '9': arr[i] = 'Cyrillic'; break;
+      case '10': arr[i] = 'Armenian'; break;
+      case '11': arr[i] = 'Hebrew'; break;
+      case '12': arr[i] = 'Vai'; break;
+      case '13': arr[i] = 'Arabic'; break;
+      case '14': arr[i] = 'NKo'; break;
+      case '15': arr[i] = 'Devanagari'; break;
+      case '16': arr[i] = 'Bengali'; break;
+      case '17': arr[i] = 'Gurmukhi'; break;
+      case '18': arr[i] = 'Gujarati'; break;
+      case '19': arr[i] = 'Oriya'; break;
+      case '20': arr[i] = 'Tamil'; break;
+      case '21': arr[i] = 'Telugu'; break;
+      case '22': arr[i] = 'Kannada'; break;
+      case '23': arr[i] = 'Malayalam'; break;
+      case '24': arr[i] = 'Thai'; break;
+      case '25': arr[i] = 'Lao'; break;
+      case '26': arr[i] = 'Georgian'; break;
+      case '27': arr[i] = 'Balinese'; break;
+      case '28': arr[i] = 'Hangul Jamo'; break;
+      case '29': arr[i] = 'Latin Extended Additional'; break;
+      case '30': arr[i] = 'Greek Extended'; break;
+      case '31': arr[i] = 'General Punctuation'; break;
+      default: break;
+    }
+  }
+  return arr;
+}
+
 function font_info(body, tables) {
   // 추가 내용 시작
   const uint8 = (b, o) => b[o];
@@ -267,7 +308,7 @@ function font_info(body, tables) {
         panoseLetterform: uint8(tab, 0x27),
         panoseMidline: uint8(tab, 0x28),
         panoseXHeight: uint8(tab, 0x29),
-        ulUnicodeRange1: range32(tab, 0x2a),
+        ulUnicodeRange1: unicodeRange1(range32(tab, 0x2a)),
         ulUnicodeRange2: range32(tab, 0x2e),
         ulUnicodeRange3: range32(tab, 0x32),
         ulUnicodeRange4: range32(tab, 0x36),
