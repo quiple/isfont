@@ -490,7 +490,10 @@ function font_info(body, tables) {
       }
       if (v >= 1) {
         font.os21 = {
-          ulCodePageRange: [codePageRange1(range32(tab, 0x4e)), codePageRange2(range32(tab, 0x52))].join('<br>')
+          ulCodePageRange: [
+            codePageRange1(range32(tab, 0x4e)),
+            codePageRange2(range32(tab, 0x52))
+          ].join('<br>')
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
