@@ -21,16 +21,16 @@ function unicodeRange1(arr) {
       case '1': arr[i] = 'Latin-1 Supplement'; break;
       case '2': arr[i] = 'Latin Extended-A'; break;
       case '3': arr[i] = 'Latin Extended-B'; break;
-      case '4': arr[i] = 'IPA Extensions'; break;
-      case '5': arr[i] = 'Spacing Modifier Letters'; break;
-      case '6': arr[i] = 'Combining Diacritical Marks'; break;
+      case '4': arr[i] = 'IPA / Phonetic Extensions (& Supplement)'; break;
+      case '5': arr[i] = 'Spacing Modifier / Modifier Tone Letters'; break;
+      case '6': arr[i] = 'Combining Diacritical Marks (& Supplement)'; break;
       case '7': arr[i] = 'Greek and Coptic'; break;
       case '8': arr[i] = 'Coptic'; break;
-      case '9': arr[i] = 'Cyrillic'; break;
+      case '9': arr[i] = 'Cyrillic (& Supplement / Extended-A/B)'; break;
       case '10': arr[i] = 'Armenian'; break;
       case '11': arr[i] = 'Hebrew'; break;
       case '12': arr[i] = 'Vai'; break;
-      case '13': arr[i] = 'Arabic'; break;
+      case '13': arr[i] = 'Arabic (& Supplement)'; break;
       case '14': arr[i] = 'NKo'; break;
       case '15': arr[i] = 'Devanagari'; break;
       case '16': arr[i] = 'Bengali'; break;
@@ -43,12 +43,12 @@ function unicodeRange1(arr) {
       case '23': arr[i] = 'Malayalam'; break;
       case '24': arr[i] = 'Thai'; break;
       case '25': arr[i] = 'Lao'; break;
-      case '26': arr[i] = 'Georgian'; break;
+      case '26': arr[i] = 'Georgian (& Supplement)'; break;
       case '27': arr[i] = 'Balinese'; break;
       case '28': arr[i] = 'Hangul Jamo'; break;
-      case '29': arr[i] = 'Latin Extended Additional'; break;
+      case '29': arr[i] = 'Latin Extended Additional / Extended-C/D'; break;
       case '30': arr[i] = 'Greek Extended'; break;
-      case '31': arr[i] = 'General Punctuation'; break;
+      case '31': arr[i] = 'General / Supplemental Punctuation'; break;
     }
   }
   return arr.join(', ');
@@ -62,8 +62,8 @@ function unicodeRange2(arr) {
       case '2': arr[i] = 'Combining Diacritical Marks For Symbols'; break;
       case '3': arr[i] = 'Letterlike Symbols'; break;
       case '4': arr[i] = 'Number Forms'; break;
-      case '5': arr[i] = 'Arrows'; break;
-      case '6': arr[i] = 'Mathematical Operators'; break;
+      case '5': arr[i] = 'Arrows / Supplemental Arrows-A/B / Miscellaneous Symbols and Arrows'; break;
+      case '6': arr[i] = 'Mathematical / Supplemental Mathematical Operators / Miscellaneous Mathematical Symbols-A/B'; break;
       case '7': arr[i] = 'Miscellaneous Technical'; break;
       case '8': arr[i] = 'Control Pictures'; break;
       case '9': arr[i] = 'Optical Character Recognition'; break;
@@ -75,8 +75,8 @@ function unicodeRange2(arr) {
       case '15': arr[i] = 'Dingbats'; break;
       case '16': arr[i] = 'CJK Symbols And Punctuation'; break;
       case '17': arr[i] = 'Hiragana'; break;
-      case '18': arr[i] = 'Katakana'; break;
-      case '19': arr[i] = 'Bopomofo'; break;
+      case '18': arr[i] = 'Katakana (& Phonetic Extensions)'; break;
+      case '19': arr[i] = 'Bopomofo (& Extended)'; break;
       case '20': arr[i] = 'Hangul Compatibility Jamo'; break;
       case '21': arr[i] = 'Phags-pa'; break;
       case '22': arr[i] = 'Enclosed CJK Letters And Months'; break;
@@ -84,9 +84,9 @@ function unicodeRange2(arr) {
       case '24': arr[i] = 'Hangul Syllables'; break;
       case '25': arr[i] = 'Non-Plane 0'; break;
       case '26': arr[i] = 'Phoenician'; break;
-      case '27': arr[i] = 'CJK Unified Ideographs'; break;
+      case '27': arr[i] = 'CJK Unified Ideographs (& Extension A/B) / Radicals Supplement / Kangxi Radicals / Ideographic Description Characters / Kanbun'; break;
       case '28': arr[i] = 'Private Use Area (plane 0)'; break;
-      case '29': arr[i] = 'CJK Strokes'; break;
+      case '29': arr[i] = 'CJK Strokes / Compatibility Ideographs (& Supplement)'; break;
       case '30': arr[i] = 'Alphabetic Presentation Forms'; break;
       case '31': arr[i] = 'Arabic Presentation Forms-A'; break;
     }
@@ -108,27 +108,62 @@ function unicodeRange3(arr) {
       case '8': arr[i] = 'Thaana'; break;
       case '9': arr[i] = 'Sinhala'; break;
       case '10': arr[i] = 'Myanmar'; break;
-      case '11': arr[i] = 'Ethiopic'; break;
+      case '11': arr[i] = 'Ethiopic (& Supplement / Extended)'; break;
       case '12': arr[i] = 'Cherokee'; break;
       case '13': arr[i] = 'Unified Canadian Aboriginal Syllabics'; break;
       case '14': arr[i] = 'Ogham'; break;
       case '15': arr[i] = 'Runic'; break;
-      case '16': arr[i] = 'Khmer'; break;
+      case '16': arr[i] = 'Khmer (& Symbols)'; break;
       case '17': arr[i] = 'Mongolian'; break;
       case '18': arr[i] = 'Braille Patterns'; break;
-      case '19': arr[i] = 'Yi Syllables'; break;
-      case '20': arr[i] = 'Tagalog'; break;
+      case '19': arr[i] = 'Yi Syllables / Radicals'; break;
+      case '20': arr[i] = 'Tagalog / Hanunoo / Buhid / Tagbanwa'; break;
       case '21': arr[i] = 'Old Italic'; break;
       case '22': arr[i] = 'Gothic'; break;
       case '23': arr[i] = 'Deseret'; break;
-      case '24': arr[i] = 'Byzantine Musical Symbols'; break;
+      case '24': arr[i] = 'Byzantine Musical / Musical Symbols / Ancient Greek Musical Notation'; break;
       case '25': arr[i] = 'Mathematical Alphanumeric Symbols'; break;
-      case '26': arr[i] = 'Private Use (plane 15)'; break;
-      case '27': arr[i] = 'Variation Selectors'; break;
+      case '26': arr[i] = 'Private Use (plane 15/16)'; break;
+      case '27': arr[i] = 'Variation Selectors (& Supplement)'; break;
       case '28': arr[i] = 'Tags'; break;
       case '29': arr[i] = 'Limbu'; break;
       case '30': arr[i] = 'Tai Le'; break;
       case '31': arr[i] = 'New Tai Lue'; break;
+    }
+  }
+  return arr.join(', ');
+}
+
+function unicodeRange4(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i]) {
+      case '0': arr[i] = 'Buginese'; break;
+      case '1': arr[i] = 'Glagolitic'; break;
+      case '2': arr[i] = 'Tifinagh'; break;
+      case '3': arr[i] = 'Yijing Hexagram Symbols'; break;
+      case '4': arr[i] = 'Syloti Nagri'; break;
+      case '5': arr[i] = 'Linear B Syllabary (& Ideograms) / Aegean Numbers'; break;
+      case '6': arr[i] = 'Ancient Greek Numbers'; break;
+      case '7': arr[i] = 'Ugaritic'; break;
+      case '8': arr[i] = 'Old Persian'; break;
+      case '9': arr[i] = 'Shavian'; break;
+      case '10': arr[i] = 'Osmanya'; break;
+      case '11': arr[i] = 'Cypriot Syllabary'; break;
+      case '12': arr[i] = 'Kharoshthi'; break;
+      case '13': arr[i] = 'Tai Xuan Jing Symbols'; break;
+      case '14': arr[i] = 'Cuneiform (& Numbers and Punctuation)'; break;
+      case '15': arr[i] = 'Counting Rod Numerals'; break;
+      case '16': arr[i] = 'Sundanese'; break;
+      case '17': arr[i] = 'Lepcha'; break;
+      case '18': arr[i] = 'Ol Chiki'; break;
+      case '19': arr[i] = 'Saurashtra'; break;
+      case '20': arr[i] = 'Kayah Li'; break;
+      case '21': arr[i] = 'Rejang'; break;
+      case '22': arr[i] = 'Cham'; break;
+      case '23': arr[i] = 'Ancient Symbols'; break;
+      case '24': arr[i] = 'Phaistos Disc'; break;
+      case '25': arr[i] = 'Carian / Lycian / Lydian'; break;
+      case '26': arr[i] = 'Domino / Mahjong Tiles'; break;
     }
   }
   return arr.join(', ');
@@ -390,7 +425,7 @@ function font_info(body, tables) {
         ulUnicodeRange1: unicodeRange1(range32(tab, 0x2a)),
         ulUnicodeRange2: unicodeRange2(range32(tab, 0x2e)),
         ulUnicodeRange3: unicodeRange3(range32(tab, 0x32)),
-        ulUnicodeRange4: range32(tab, 0x36),
+        ulUnicodeRange4: unicodeRange4(range32(tab, 0x36)),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
         usFirstCharIndex: uint16(tab, 0x40),
