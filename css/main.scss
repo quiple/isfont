@@ -48,7 +48,7 @@ code {
   padding: .125rem .25rem;
 }
 
-h2, p, table, dl, footer {
+h2, h3, p, table, dl, footer {
   margin-top: 1em;
 
   &:first-child {
@@ -93,7 +93,7 @@ dl {
 }
 
 dt {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 input, textarea {
@@ -224,7 +224,7 @@ button {
       top: $vertical_padding;
       background-color: #{$background}7f;
       backdrop-filter: blur(.5rem);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.5rem;
 
       padding: {
@@ -235,6 +235,12 @@ button {
         left: calc(2vw - .375em);
         right: calc(2vw - .375em);
       }
+    }
+
+    > h3 {
+      font-weight: 700;
+      font-size: 1.25rem;
+      border-bottom: .125rem solid #{$foreground}3f;
     }
 
     #t {
