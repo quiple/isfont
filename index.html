@@ -312,6 +312,17 @@ layout: default
       }
 
       // 추가 내용 시작
+      if (hhea) {
+        for (field in hhea) {
+          var dt = element('dt');
+          var dd = element('dd');
+          dt.innerHTML = 'hhea ' + field;
+          insert(get('main dl'), dt, get('main dt[title="0"]'));
+          dd.innerHTML = hhea[field];
+          insert(get('main dl'), dd, get('main dt[title="0"]'));
+        }
+      }
+
       if (os2) {
         for (field in os2) {
           var dt = element('dt');
