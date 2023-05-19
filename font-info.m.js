@@ -219,6 +219,96 @@ function codePageRange2(arr) {
   return arr.join('<br>');
 }
 
+function panoseFamilyType(i) {
+  switch (i) {
+    case 0: return 'Any'; break;
+    case 1: return 'No Fit'; break;
+    case 2: return 'Latin Text'; break;
+    case 3: return 'Latin Handwritten'; break;
+    case 4: return 'Latin Decorative'; break;
+    case 5: return 'Latin Symbol'; break;
+    default: return i; break;
+  }
+}
+
+function panoseSerifStyle(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Cove'; break;
+      case 3: return 'Obtuse Cove'; break;
+      case 4: return 'Square Cove'; break;
+      case 5: return 'Obtuse Square Cove'; break;
+      case 6: return 'Square'; break;
+      case 7: return 'Thin'; break;
+      case 8: return 'Oval'; break;
+      case 9: return 'Exaggerated'; break;
+      case 10: return 'Triangle'; break;
+      case 11: return 'Normal Sans'; break;
+      case 12: return 'Obtuse Sans'; break;
+      case 13: return 'Perpendicular Sans'; break;
+      case 14: return 'Flared'; break;
+      case 15: return 'Rounded'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Flat Nib'; break;
+      case 3: return 'Pressure Point'; break;
+      case 4: return 'Engraved'; break;
+      case 5: return 'Ball (Round Cap)'; break;
+      case 6: return 'Brush'; break;
+      case 7: return 'Rough'; break;
+      case 8: return 'Felt Pen / Brush Tip'; break;
+      case 9: return 'Wild Brush - Drips a lot'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Derivative'; break;
+      case 3: return 'Non-standard Topology'; break;
+      case 4: return 'Non-standard Elements'; break;
+      case 5: return 'Non-standard Aspect'; break;
+      case 6: return 'Initials'; break;
+      case 7: return 'Cartoon'; break;
+      case 8: return 'Picture Stems'; break;
+      case 9: return 'Ornamented'; break;
+      case 10: return 'Text and Background'; break;
+      case 11: return 'Collage'; break;
+      case 12: return 'Montage'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Montages'; break;
+      case 3: return 'Pictures'; break;
+      case 4: return 'Shapes'; break;
+      case 5: return 'Scientific'; break;
+      case 6: return 'Music'; break;
+      case 7: return 'Expert'; break;
+      case 8: return 'Patterns'; break;
+      case 9: return 'Boarders'; break;
+      case 10: return 'Icons'; break;
+      case 11: return 'Logos'; break;
+      case 12: return 'Industry Specific'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
 function font_info(body, tables) {
   // 추가 내용 시작
   const uint8 = (b, o) => b[o];
@@ -456,6 +546,7 @@ function font_info(body, tables) {
     if (tab) {
       // 추가 내용 시작
       var v = uint16(tab, 0);
+      var p = uint8(tab, 0x20);
       font.os2 = {
         version: v,
         xAvgCharWidth: int16(tab, 2),
@@ -473,8 +564,8 @@ function font_info(body, tables) {
         yStrikeoutSize: int16(tab, 0x1a),
         yStrikeoutPosition: int16(tab, 0x1c),
         sFamilyClass: int16(tab, 0x1e),
-        panoseFamilyType: uint8(tab, 0x20),
-        panoseSerifStyle: uint8(tab, 0x21),
+        panoseFamilyType: panoseFamilyType(p),
+        panoseSerifStyle: panoseSerifStyle(p, uint8(tab, 0x21)),
         panoseWeight: uint8(tab, 0x22),
         panoseProportion: uint8(tab, 0x23),
         panoseContrast: uint8(tab, 0x24),
