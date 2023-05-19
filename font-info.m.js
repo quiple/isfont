@@ -219,7 +219,7 @@ function codePageRange2(arr) {
   return arr.join('<br>');
 }
 
-function panoseFamilyType(i) {
+function panose1(i) {
   switch (i) {
     case 0: return 'Any'; break;
     case 1: return 'No Fit'; break;
@@ -231,7 +231,7 @@ function panoseFamilyType(i) {
   }
 }
 
-function panoseSerifStyle(p, i) {
+function panose2(p, i) {
   if (p == 2) {
     switch (i) {
       case 0: return 'Any'; break;
@@ -298,6 +298,484 @@ function panoseSerifStyle(p, i) {
       case 10: return 'Icons'; break;
       case 11: return 'Logos'; break;
       case 12: return 'Industry Specific'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose3(p, i) {
+  if (p == 2 || p == 3 || p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Very Light'; break;
+      case 3: return 'Light'; break;
+      case 4: return 'Thin'; break;
+      case 5: return 'Book'; break;
+      case 6: return 'Medium'; break;
+      case 7: return 'Demi'; break;
+      case 8: return 'Bold'; break;
+      case 9: return 'Heavy'; break;
+      case 10: return 'Black'; break;
+      case 11: return 'Extra Black (Nord)'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose4(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Old Style'; break;
+      case 3: return 'Modern'; break;
+      case 4: return 'Even Width'; break;
+      case 5: return 'Extended'; break;
+      case 6: return 'Condensed'; break;
+      case 7: return 'Very Extended'; break;
+      case 8: return 'Very Condensed'; break;
+      case 9: return 'Monospaced'; break;
+      default: return i; break;
+    }
+  } else if (p == 3 || p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Proportional Spaced'; break;
+      case 3: return 'Monospaced'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Super Condensed'; break;
+      case 3: return 'Very Condensed'; break;
+      case 4: return 'Condensed'; break;
+      case 5: return 'Normal'; break;
+      case 6: return 'Extended'; break;
+      case 7: return 'Very Extended'; break;
+      case 8: return 'Super Extended'; break;
+      case 9: return 'Monospaced'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose5(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None'; break;
+      case 3: return 'Very Low'; break;
+      case 4: return 'Low'; break;
+      case 5: return 'Medium Low'; break;
+      case 6: return 'Medium'; break;
+      case 7: return 'Medium High'; break;
+      case 8: return 'High'; break;
+      case 9: return 'Very High'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Very Condensed'; break;
+      case 3: return 'Condensed'; break;
+      case 4: return 'Normal'; break;
+      case 5: return 'Expanded'; break;
+      case 6: return 'Very Expanded'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None'; break;
+      case 3: return 'Very Low'; break;
+      case 4: return 'Low'; break;
+      case 5: return 'Medium Low'; break;
+      case 6: return 'Medium'; break;
+      case 7: return 'Medium High'; break;
+      case 8: return 'High'; break;
+      case 9: return 'Very High'; break;
+      case 10: return 'Horizontal Low'; break;
+      case 11: return 'Horizontal Medium'; break;
+      case 12: return 'Horizontal High'; break;
+      case 13: return 'Broken'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose6(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Variation'; break;
+      case 3: return 'Gradual / Diagonal'; break;
+      case 4: return 'Gradual / Transitional'; break;
+      case 5: return 'Gradual / Vertical'; break;
+      case 6: return 'Gradual / Horizontal'; break;
+      case 7: return 'Rapid / Vertical'; break;
+      case 8: return 'Rapid / Horizontal'; break;
+      case 9: return 'Instant / Vertical'; break;
+      case 10: return 'Instant / Horizontal'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None'; break;
+      case 3: return 'Very Low'; break;
+      case 4: return 'Low'; break;
+      case 5: return 'Medium Low'; break;
+      case 6: return 'Medium'; break;
+      case 7: return 'Medium High'; break;
+      case 8: return 'High'; break;
+      case 9: return 'Very High'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Cove'; break;
+      case 3: return 'Obtuse Cove'; break;
+      case 4: return 'Square Cove'; break;
+      case 5: return 'Obtuse Square Cove'; break;
+      case 6: return 'Square'; break;
+      case 7: return 'Thin'; break;
+      case 8: return 'Oval'; break;
+      case 9: return 'Exaggerated'; break;
+      case 10: return 'Triangle'; break;
+      case 11: return 'Normal Sans'; break;
+      case 12: return 'Obtuse Sans'; break;
+      case 13: return 'Perpendicular Sans'; break;
+      case 14: return 'Flared'; break;
+      case 15: return 'Rounded'; break;
+      case 16: return 'Script'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Width'; break;
+      case 3: return 'Exceptionally Wide'; break;
+      case 4: return 'Super Wide'; break;
+      case 5: return 'Very Wide'; break;
+      case 6: return 'Wide'; break;
+      case 7: return 'Normal'; break;
+      case 8: return 'Narrow'; break;
+      case 9: return 'Very Narrow'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose7(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Straight Arms / Horizontal'; break;
+      case 3: return 'Straight Arms / Wedge'; break;
+      case 4: return 'Straight Arms / Vertical'; break;
+      case 5: return 'Straight Arms / Single Serif'; break;
+      case 6: return 'Straight Arms / Double Serif'; break;
+      case 7: return 'Non-Straight / Horizontal'; break;
+      case 8: return 'Non-Straight / Wedge'; break;
+      case 9: return 'Non-Straight / Vertical'; break;
+      case 10: return 'Non-Straight / Single Serif'; break;
+      case 11: return 'Non-Straight / Double Serif'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Roman Disconnected'; break;
+      case 3: return 'Roman Trailing'; break;
+      case 4: return 'Roman Connected'; break;
+      case 5: return 'Cursive Disconnected'; break;
+      case 6: return 'Cursive Trailing'; break;
+      case 7: return 'Cursive Connected'; break;
+      case 8: return 'Blackletter Disconnected'; break;
+      case 9: return 'Blackletter Trailing'; break;
+      case 10: return 'Blackletter Connected'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None - Standard Solid Fill'; break;
+      case 3: return 'White / No Fill'; break;
+      case 4: return 'Patterned Fill'; break;
+      case 5: return 'Complex Fill'; break;
+      case 6: return 'Shaped Fill'; break;
+      case 7: return 'Drawn / Distressed'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Width'; break;
+      case 3: return 'Exceptionally Wide'; break;
+      case 4: return 'Super Wide'; break;
+      case 5: return 'Very Wide'; break;
+      case 6: return 'Wide'; break;
+      case 7: return 'Normal'; break;
+      case 8: return 'Narrow'; break;
+      case 9: return 'Very Narrow'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose8(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Normal / Contact'; break;
+      case 3: return 'Normal / Weighted'; break;
+      case 4: return 'Normal / Boxed'; break;
+      case 5: return 'Normal / Flattened'; break;
+      case 6: return 'Normal / Rounded'; break;
+      case 7: return 'Normal / Off Center'; break;
+      case 8: return 'Normal / Square'; break;
+      case 9: return 'Oblique / Contact'; break;
+      case 10: return 'Oblique / Weighted'; break;
+      case 11: return 'Oblique / Boxed'; break;
+      case 12: return 'Oblique / Flattened'; break;
+      case 13: return 'Oblique / Rounded'; break;
+      case 14: return 'Oblique / Off Center'; break;
+      case 15: return 'Oblique / Square'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Upright / No Wrapping'; break;
+      case 3: return 'Upright / Some Wrapping'; break;
+      case 4: return 'Upright / More Wrapping'; break;
+      case 5: return 'Upright / Extreme Wrapping'; break;
+      case 6: return 'Oblique / No Wrapping'; break;
+      case 7: return 'Oblique / Some Wrapping'; break;
+      case 8: return 'Oblique / More Wrapping'; break;
+      case 9: return 'Oblique / Extreme Wrapping'; break;
+      case 10: return 'Exaggerated / No Wrapping'; break;
+      case 11: return 'Exaggerated / Some Wrapping'; break;
+      case 12: return 'Exaggerated / More Wrapping'; break;
+      case 13: return 'Exaggerated / Extreme Wrapping'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None'; break;
+      case 3: return 'Inline'; break;
+      case 4: return 'Outline'; break;
+      case 5: return 'Engraved (Multiple Lines)'; break;
+      case 6: return 'Shadow'; break;
+      case 7: return 'Relief'; break;
+      case 8: return 'Backdrop'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Width'; break;
+      case 3: return 'Exceptionally Wide'; break;
+      case 4: return 'Super Wide'; break;
+      case 5: return 'Very Wide'; break;
+      case 6: return 'Wide'; break;
+      case 7: return 'Normal'; break;
+      case 8: return 'Narrow'; break;
+      case 9: return 'Very Narrow'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose9(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Standard / Trimmed'; break;
+      case 3: return 'Standard / Pointed'; break;
+      case 4: return 'Standard / Serifed'; break;
+      case 5: return 'High / Trimmed'; break;
+      case 6: return 'High / Pointed'; break;
+      case 7: return 'High / Serifed'; break;
+      case 8: return 'Constant / Trimmed'; break;
+      case 9: return 'Constant / Pointed'; break;
+      case 10: return 'Constant / Serifed'; break;
+      case 11: return 'Low / Trimmed'; break;
+      case 12: return 'Low / Pointed'; break;
+      case 13: return 'Low / Serifed'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'None / No Loops'; break;
+      case 3: return 'None / Closed Loops'; break;
+      case 4: return 'None / Open Loops'; break;
+      case 5: return 'Sharp / No Loops'; break;
+      case 6: return 'Sharp / Closed Loops'; break;
+      case 7: return 'Sharp / Open Loops'; break;
+      case 8: return 'Tapered / No Loops'; break;
+      case 9: return 'Tapered / Closed Loops'; break;
+      case 10: return 'Tapered / Open Loops'; break;
+      case 11: return 'Round / No Loops'; break;
+      case 12: return 'Round / Closed Loops'; break;
+      case 13: return 'Round / Open Loops'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Standard'; break;
+      case 3: return 'Square'; break;
+      case 4: return 'Multiple Segment'; break;
+      case 5: return 'Deco (E,M,S) Waco midlines'; break;
+      case 6: return 'Uneven Weighting'; break;
+      case 7: return 'Diverse Arms'; break;
+      case 8: return 'Diverse Forms'; break;
+      case 9: return 'Lombardic Forms'; break;
+      case 10: return 'Upper Case in Lower Case'; break;
+      case 11: return 'Implied Topology'; break;
+      case 12: return 'Horseshoe E and A'; break;
+      case 13: return 'Cursive'; break;
+      case 14: return 'Blackletter'; break;
+      case 15: return 'Swash Variance'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Width'; break;
+      case 3: return 'Exceptionally Wide'; break;
+      case 4: return 'Super Wide'; break;
+      case 5: return 'Very Wide'; break;
+      case 6: return 'Wide'; break;
+      case 7: return 'Normal'; break;
+      case 8: return 'Narrow'; break;
+      case 9: return 'Very Narrow'; break;
+      default: return i; break;
+    }
+  } else {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      default: return i; break;
+    }
+  }
+}
+
+function panose10(p, i) {
+  if (p == 2) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Constant / Small'; break;
+      case 3: return 'Constant / Standard'; break;
+      case 4: return 'Constant / Large'; break;
+      case 5: return 'Ducking / Small'; break;
+      case 6: return 'Ducking / Standard'; break;
+      case 7: return 'Ducking / Large'; break;
+      default: return i; break;
+    }
+  } else if (p == 3) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Very Low'; break;
+      case 3: return 'Low'; break;
+      case 4: return 'Medium'; break;
+      case 5: return 'High'; break;
+      case 6: return 'Very High'; break;
+      default: return i; break;
+    }
+  } else if (p == 4) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'Extended Collection'; break;
+      case 3: return 'Litterals'; break;
+      case 4: return 'No Lower Case'; break;
+      case 5: return 'Small Caps'; break;
+      default: return i; break;
+    }
+  } else if (p == 5) {
+    switch (i) {
+      case 0: return 'Any'; break;
+      case 1: return 'No Fit'; break;
+      case 2: return 'No Width'; break;
+      case 3: return 'Exceptionally Wide'; break;
+      case 4: return 'Super Wide'; break;
+      case 5: return 'Very Wide'; break;
+      case 6: return 'Wide'; break;
+      case 7: return 'Normal'; break;
+      case 8: return 'Narrow'; break;
+      case 9: return 'Very Narrow'; break;
       default: return i; break;
     }
   } else {
@@ -564,16 +1042,16 @@ function font_info(body, tables) {
         yStrikeoutSize: int16(tab, 0x1a),
         yStrikeoutPosition: int16(tab, 0x1c),
         sFamilyClass: int16(tab, 0x1e),
-        panoseFamilyType: panoseFamilyType(p),
-        panoseSerifStyle: panoseSerifStyle(p, uint8(tab, 0x21)),
-        panoseWeight: uint8(tab, 0x22),
-        panoseProportion: uint8(tab, 0x23),
-        panoseContrast: uint8(tab, 0x24),
-        panoseStrokeVariation: uint8(tab, 0x25),
-        panoseArmStyle: uint8(tab, 0x26),
-        panoseLetterform: uint8(tab, 0x27),
-        panoseMidline: uint8(tab, 0x28),
-        panoseXHeight: uint8(tab, 0x29),
+        panoseFamilyType: panose1(p),
+        panoseSerifStyle: panose2(p, uint8(tab, 0x21)),
+        panoseWeight: panose3(p, uint8(tab, 0x22)),
+        panoseProportion: panose4(p, uint8(tab, 0x23)),
+        panoseContrast: panose5(p, uint8(tab, 0x24)),
+        panoseStrokeVariation: panose6(p, uint8(tab, 0x25)),
+        panoseArmStyle: panose7(p, uint8(tab, 0x26)),
+        panoseLetterform: panose8(p, uint8(tab, 0x27)),
+        panoseMidline: panose9(p, uint8(tab, 0x28)),
+        panoseXHeight: panose10(p, uint8(tab, 0x29)),
         ulUnicodeRange: [
           unicodeRange1(range32(tab, 0x2a)),
           unicodeRange2(range32(tab, 0x2e)),
