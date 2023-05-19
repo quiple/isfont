@@ -199,7 +199,7 @@ layout: default
       var { name, ranges, strings, features, created, modified, GPOS, GSUB, hhea, os2 } = font
       // 추가 내용 끝
 
-      main.innerHTML = '<h2></h2><table id=t></table><h3 class="name">name</h3><dl class="name"></dl><p>'
+      main.innerHTML = '<h2></h2><table id=t></table><h3 id="name">name</h3><dl class="name"></dl><p>'
       var [title, table, nameH3, names, summ] = main.children
       title.textContent = document.title = name || 'No Name'
       // 추가 내용 시작
@@ -314,25 +314,27 @@ layout: default
       // 추가 내용 시작
       if (hhea) {
         var h3 = element('h3');
+        h3.id = 'hhea';
         h3.innerHTML = 'hhea';
         var dl = element('dl');
         dl.className = 'hhea';
         for (field in hhea) {
           dl.innerHTML += '<dt>' + field + '</dt><dd>' + hhea[field] + '</dd>';
         }
-        insert(get('main'), dl, get('h3.name'));
+        insert(get('main'), dl, get('#name'));
         insert(get('main'), h3, get('dl.hhea'));
       }
 
       if (os2) {
         var h3 = element('h3');
+        h3.id = 'os2';
         h3.innerHTML = 'OS/2';
         var dl = element('dl');
         dl.className = 'os2';
         for (field in os2) {
           dl.innerHTML += '<dt>' + field + '</dt><dd>' + os2[field] + '</dd>';
         }
-        insert(get('main'), dl, get('h3.name'));
+        insert(get('main'), dl, get('#name'));
         insert(get('main'), h3, get('dl.os2'));
       }
       // 추가 내용 끝
