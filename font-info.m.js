@@ -488,7 +488,7 @@ function font_info(body, tables) {
           unicodeRange2(range32(tab, 0x2e)),
           unicodeRange3(range32(tab, 0x32)),
           unicodeRange4(range32(tab, 0x36))
-        ].join('<br>'),
+        ].join('<br>').replace(/(<br>)+$/, ''),
         achVendID: gstr(tab, 0x3a, 4),
         fsSelection: uint16(tab, 0x3e),
         usFirstCharIndex: uint16(tab, 0x40),
@@ -504,7 +504,7 @@ function font_info(body, tables) {
           ulCodePageRange: [
             codePageRange1(range32(tab, 0x4e)),
             codePageRange2(range32(tab, 0x52))
-          ].join('<br>')
+          ].join('<br>').replace(/(<br>)+$/, '')
         }
         font.os2 = { ...font.os2, ...font.os21 }
       }
