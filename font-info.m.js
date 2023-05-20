@@ -1036,20 +1036,20 @@ function font_info(body, tables) {
   var tab = tables.hhea
   if (tab) {
     font.hhea = {
-      majorVersion: uint16(tab, 0),
-      minorVersion: uint16(tab, 2),
-      ascender: int16(tab, 4),
-      descender: int16(tab, 6),
-      lineGap: int16(tab, 8),
-      advanceWidthMax: uint16(tab, 0x0a),
-      minLeftSideBearing: int16(tab, 0x0c),
-      minRightSideBearing: int16(tab, 0x0e),
-      xMaxExtent: int16(tab, 0x10),
-      caretSlopeRise: int16(tab, 0x12),
-      caretSlopeRun: int16(tab, 0x14),
-      caretOffset: int16(tab, 0x16),
-      metricDataFormat: int16(tab, 0x20),
-      numberOfHMetrics: int16(tab, 0x22),
+      'Major Version': uint16(tab, 0),
+      'Minor Version': uint16(tab, 2),
+      'Ascender': int16(tab, 4),
+      'Descender': int16(tab, 6),
+      'Line Gap': int16(tab, 8),
+      'Maximum Advance Width': uint16(tab, 0x0a),
+      'Minimum Left Sidebearing': int16(tab, 0x0c),
+      'Minimum Right Sidebearing': int16(tab, 0x0e),
+      'xMax Extent': int16(tab, 0x10),
+      'Caret Slope Rise': int16(tab, 0x12),
+      'Caret Slope Run': int16(tab, 0x14),
+      'Caret Offset': int16(tab, 0x16),
+      'Metric Data Format': int16(tab, 0x20),
+      'Number of Horizontal Metrics': int16(tab, 0x22)
     }
 
     var tab = tables['OS/2']
