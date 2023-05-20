@@ -114,7 +114,6 @@ layout: default
     }
 
     function new_font(o) {
-      // 추가 내용 시작
       get('#char span:first-child').textContent = '';
       get('#char span:last-child').textContent = '';
       get('#left').style.display = 'flex';
@@ -126,7 +125,6 @@ layout: default
       get('#char span:first-child').style.fontWeight = '400';
       get('#tameshi').style.fontWeight = '400';
       get('#test-weight-indicator').innerText = '400';
-      // 추가 내용 끝
       show(0)
 
       var out = main
@@ -149,13 +147,11 @@ layout: default
             GPOS: false,
             GSUB: false,
             hhea: true,
-            // 추가 내용 시작
             'OS/2': false,
             HVAR: false,
             MVAR: false,
             avar: false,
             fvar: false
-            // 추가 내용 끝
           })
         } catch (x) {
           out.innerHTML = ''
@@ -176,9 +172,7 @@ layout: default
           u = URL.createObjectURL(o.file)
         if (r)
           css.deleteRule(r)
-        // 추가 내용 시작
         css.insertRule(`@font-face { font-family: thefont; src: url("${u}"); font-display: block; }`, css.cssRules.length)
-        // 추가 내용 끝
 
         list_font(font, file)
       })
@@ -195,16 +189,12 @@ layout: default
     }
 
     function list_font(font, file) {
-      // 추가 내용 시작
       var { name, ranges, strings, features, created, modified, GPOS, GSUB, hhea, os2 } = font
-      // 추가 내용 끝
 
       main.innerHTML = '<h2></h2><table id=t></table><h3 id="name">name</h3><dl class="name"></dl><p>'
       var [title, table, nameH3, names, summ] = main.children
       title.textContent = document.title = name || 'No Name'
-      // 추가 내용 시작
       get('#char span:nth-child(2)').textContent = document.title = name || 'No Name'
-      // 추가 내용 끝
 
       var tbody = element('tbody')
       var row
@@ -247,10 +237,8 @@ layout: default
       function td(u) {
         var e = element('td')
         if (u != undefined) {
-          // 추가 내용 시작
           e.classList.add('c');
           var u32 = u.toString(16).toUpperCase();
-          // 추가 내용 끝
           var s = ''
           if (u > 0xFFFF) {
             u -= 0x10000
@@ -258,7 +246,6 @@ layout: default
             u = u & 0x3FF | 0xDC00
           }
           e.textContent = s + String.fromCharCode(u)
-          // 추가 내용 시작
           e.setAttribute('title', 'U+' + u32.padStart(4, '0'));
           e.addEventListener('click', event => {
             get('#char span:first-child').textContent = event.target.textContent;
@@ -268,14 +255,11 @@ layout: default
             });
             event.target.classList.add('selected');
           });
-          // 추가 내용 끝
         }
         insert(row, e)
       }
 
-      // 추가 내용 시작
       var ns = ["Copyright", "Family", "Subfamily", "Unique ID", "Full Name", "Version", "PostScript Name", "Trademark", "Manufacturer", "Designer", "Description", "Vendor URL", "Designer URL", "License", "License URL", , "Typographic Family", "Typographic Subfamily", "Compatible Full", "Sample Text", "PostScript CID FindFont Name", "WWS Family", "WWS Subfamily", "Light Background Palette", "Dark Background Palette", "Variations PostScript Name Prefix"]
-      // 추가 내용 끝
 
       for (var n in strings) {
         var dt = element('dt')
@@ -291,10 +275,8 @@ layout: default
             v.match(/^[^:/]+@/) ? 'mailto:' :
               v.match(/^[a-z0-9]+:/i) ? '' : 'http://'
           ) + v
-          // 추가 내용 시작
           e.target = '_blank';
           e.rel = 'noreferrer noopener';
-          // 추가 내용 끝
           insert(dd, e)
         }
         e.textContent = v
@@ -305,13 +287,10 @@ layout: default
 
       if (features && features[0]) {
         var e = element('p')
-        // 추가 내용 시작
         e.innerHTML = 'Features: <code>' + features.join('</code> <code>') + '</code>';
-        // 추가 내용 끝
         insert(main, e, summ)
       }
 
-      // 추가 내용 시작
       if (hhea) {
         var h3 = element('h3');
         h3.id = 'hhea';
@@ -337,7 +316,6 @@ layout: default
         insert(get('main'), dl, get('#name'));
         insert(get('main'), h3, get('dl.os2'));
       }
-      // 추가 내용 끝
 
       var [dc, dm] = [created, modified].map(t => t && t.toISOString().substr(0, 10))
       var s = font.type

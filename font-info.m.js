@@ -820,7 +820,6 @@ function panose10(p, i) {
 }
 
 function font_info(body, tables) {
-  // 추가 내용 시작
   const uint8 = (b, o) => b[o];
   const int8 = (b, o) => (uint8(b, o) ^ 0x80) - 0x80;
   const uint16 = (b, o) => b[o] << 8 | b[o + 1];
@@ -828,7 +827,6 @@ function font_info(body, tables) {
   const uint32 = (b, o) => (uint16(b, o) << 16 | uint16(b, o + 2)) >>> 0;
   const int32 = (b, o) => uint16(b, o) << 16 | uint16(b, o + 2);
   const range32 = (b, o) => Object.keys(Object.fromEntries(Object.entries(Object.assign({}, uint32(b, o).toString(2).padStart(32, '0').split('').reverse())).filter(([, x]) => x == 1)));
-  // 추가 내용 끝
   const g64 = (b, o) => 0x10000 * 0x10000 * uint32(b, o) + uint32(b, o + 4)
   const gstr = (b, o, n) => String.fromCharCode.apply(String, b.subarray(o, o + n))
 
@@ -1054,7 +1052,6 @@ function font_info(body, tables) {
 
     var tab = tables['OS/2']
     if (tab) {
-      // 추가 내용 시작
       var v = uint16(tab, 0);
       var p = uint8(tab, 0x20);
       font.os2 = {
@@ -1128,7 +1125,6 @@ function font_info(body, tables) {
         }
         font.os2 = { ...font.os2, ...font.os25 }
       }
-      // 추가 내용 끝
     }
   }
 
