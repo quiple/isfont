@@ -759,7 +759,7 @@ function panose9(p, i) {
 }
 
 function panose10(p, i) {
-  var prefix = 'x-Height: ';
+  var prefix = 'x-height: ';
   if (p == 2) {
     switch (i) {
       case 0: return prefix + 'Any'; break;
@@ -816,6 +816,21 @@ function panose10(p, i) {
       case 1: return prefix + 'No Fit'; break;
       default: return prefix + i; break;
     }
+  }
+}
+
+function weightClass(i) {
+  switch (i) {
+    case 100: return i + ' Thin'; break;
+    case 200: return i + ' Extra-light (Ultra-light)'; break;
+    case 300: return i + ' Light'; break;
+    case 400: return i + ' Normal (Regular)'; break;
+    case 500: return i + ' Medium'; break;
+    case 600: return i + ' Semi-bold (Demi-bold)'; break;
+    case 700: return i + ' Bold'; break;
+    case 800: return i + ' Extra-bold (Ultra-bold)'; break;
+    case 900: return i + ' Black (Heavy)'; break;
+    default: return i; break;
   }
 }
 
@@ -1057,7 +1072,7 @@ function font_info(body, tables) {
       font.os2 = {
         'Version': v,
         'Average Character Width': int16(tab, 2),
-        'Weight Class': uint16(tab, 4),
+        'Weight Class': weightClass(uint16(tab, 4)),
         'Width Class': uint16(tab, 6),
         'Type Flags': uint16(tab, 8),
         'Subscript X Size': int16(tab, 0x0a),
@@ -1110,7 +1125,7 @@ function font_info(body, tables) {
       }
       if (v >= 4) {
         font.os24 = {
-          'x-Height': int16(tab, 0x56),
+          'x-height': int16(tab, 0x56),
           'Capital Height': int16(tab, 0x58),
           'Default Character': uint16(tab, 0x5a),
           'Break Character': uint16(tab, 0x5c),
