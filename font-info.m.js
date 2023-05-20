@@ -834,6 +834,21 @@ function weightClass(i) {
   }
 }
 
+function widthClass(i) {
+  switch (i) {
+    case 1: return 'Ultra-condensed (50%)'; break;
+    case 2: return 'Extra-condensed (62.5%)'; break;
+    case 3: return 'Condensed (75%)'; break;
+    case 4: return 'Semi-condensed (87.5%)'; break;
+    case 5: return 'Medium (100%)'; break;
+    case 6: return 'Semi-expanded (112.5%)'; break;
+    case 7: return 'Expanded (125%)'; break;
+    case 8: return 'Extra-expanded (150%)'; break;
+    case 9: return 'Ultra-expanded (200%)'; break;
+    default: return i; break;
+  }
+}
+
 function font_info(body, tables) {
   const uint8 = (b, o) => b[o];
   const int8 = (b, o) => (uint8(b, o) ^ 0x80) - 0x80;
@@ -1073,7 +1088,7 @@ function font_info(body, tables) {
         'Version': v,
         'Average Character Width': int16(tab, 2),
         'Weight Class': weightClass(uint16(tab, 4)),
-        'Width Class': uint16(tab, 6),
+        'Width Class': widthClass(uint16(tab, 6)),
         'Type Flags': uint16(tab, 8),
         'Subscript X Size': int16(tab, 0x0a),
         'Subscript Y Size': int16(tab, 0x0c),
