@@ -464,9 +464,9 @@ layout: default
     var selectedTrIndex = [...selectedTr.parentElement.children].indexOf(selectedTr);
 
     var up = selectedTr.previousElementSibling.children[selectedIndex];
-    // while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
+    while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
     var down = selectedTr.nextElementSibling.children[selectedIndex];
-    // while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
+    while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
 
     if (selectedIndex > selectedTrFirstC) {
       var left = selected.previousElementSibling;
