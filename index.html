@@ -207,8 +207,8 @@ layout: default
         while (n < start) {
           if ((n & 15) == 0) {
             var nx = start & ~15
-            if (n != nx && row)
-              row.className = 'b'
+            // if (n != nx && row)
+            //   row.className = 'b'
             n = nx
             if (n == start)
               break
@@ -458,21 +458,28 @@ layout: default
   document.addEventListener('keydown', (e) => {
     var selected = document.getElementsByClassName('selected')[0];
     var selectedTr = selected.parentElement;
+
     var selectedIndex = [...selectedTr.children].indexOf(selected);
-    var selectedTrFirstC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c'))[0]);
-    var selectedTrLastC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c')).pop());
+    var selectedFirstC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c'))[0]);
+    var selectedLastC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c')).pop());
+
     var selectedTrIndex = [...selectedTr.parentElement.children].indexOf(selectedTr);
+    var selectedTrFirstC = [...selectedTr.parentElement.children].indexOf(Array.from(selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))'))[0]);
+    var selectedTrLastC = [...selectedTr.parentElement.children].indexOf(Array.from(selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')).pop());
 
-    var up = selectedTr.previousElementSibling.children[selectedIndex];
-    while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
-    var down = selectedTr.nextElementSibling.children[selectedIndex];
-    while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
-
-    if (selectedIndex > selectedTrFirstC) {
+    if (selectedTrIndex > selectedTrFirstC) {
+      var up = selectedTr.previousElementSibling.children[selectedIndex];
+      while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
+    }
+    if (selectedTrIndex < selectedTrLastC) {
+      var down = selectedTr.nextElementSibling.children[selectedIndex];
+      while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
+    }
+    if (selectedIndex > selectedFirstC) {
       var left = selected.previousElementSibling;
       while (!left.classList.contains('c')) left = left.previousElementSibling;
     }
-    if (selectedIndex < selectedTrLastC) {
+    if (selectedIndex < selectedLastC) {
       var right = selected.nextElementSibling;
       while (!right.classList.contains('c')) right = right.nextElementSibling;
     }
