@@ -460,12 +460,14 @@ layout: default
     var selectedTr = selected.parentElement;
 
     var selectedIndex = [...selectedTr.children].indexOf(selected);
-    var selectedFirstC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c'))[0]);
-    var selectedLastC = [...selectedTr.children].indexOf(Array.from(selectedTr.getElementsByClassName('c')).pop());
+    var selectedFirstC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')][0]);
+    var selectedLastC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')].pop());
 
     var selectedTrIndex = [...selectedTr.parentElement.children].indexOf(selectedTr);
-    var selectedTrFirstC = [...selectedTr.parentElement.children].indexOf(Array.from(selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))'))[0]);
-    var selectedTrLastC = [...selectedTr.parentElement.children].indexOf(Array.from(selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')).pop());
+    var selectedTrFirst = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children][0]);
+    var selectedTrLast = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children].pop());
+    var selectedTrFirstC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')][0]);
+    var selectedTrLastC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')].pop());
 
     if (selectedTrIndex > selectedTrFirstC) {
       var up = selectedTr.previousElementSibling.children[selectedIndex];
@@ -475,11 +477,15 @@ layout: default
       var down = selectedTr.nextElementSibling.children[selectedIndex];
       while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
     }
-    if (selectedIndex > selectedFirstC) {
+    if (selectedIndex == selectedFirstC && selectedTrIndex != selectedTrFirst) {
+      var left = [...selectedTr.previousElementSibling.getElementsByClassName('c')].pop();
+    } else if (selectedIndex > selectedFirstC) {
       var left = selected.previousElementSibling;
       while (!left.classList.contains('c')) left = left.previousElementSibling;
     }
-    if (selectedIndex < selectedLastC) {
+    if (selectedIndex == selectedLastC && selectedTrIndex != selectedTrLast) {
+      var right = [...selectedTr.nextElementSibling.getElementsByClassName('c')][0];
+    } else if (selectedIndex < selectedLastC) {
       var right = selected.nextElementSibling;
       while (!right.classList.contains('c')) right = right.nextElementSibling;
     }
