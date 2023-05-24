@@ -457,44 +457,47 @@ layout: default
   });
   document.addEventListener('keydown', (e) => {
     var selected = document.getElementsByClassName('selected')[0];
-    var selectedTr = selected.parentElement;
 
-    var selectedIndex = [...selectedTr.children].indexOf(selected);
-    var selectedFirstC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')][0]);
-    var selectedLastC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')].pop());
+    if (selected) {
+      var selectedTr = selected.parentElement;
 
-    var selectedTrIndex = [...selectedTr.parentElement.children].indexOf(selectedTr);
-    var selectedTrFirst = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children][0]);
-    var selectedTrLast = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children].pop());
-    var selectedTrFirstC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')][0]);
-    var selectedTrLastC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')].pop());
+      var selectedIndex = [...selectedTr.children].indexOf(selected);
+      var selectedFirstC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')][0]);
+      var selectedLastC = [...selectedTr.children].indexOf([...selectedTr.getElementsByClassName('c')].pop());
 
-    if (selectedTrIndex > selectedTrFirstC) {
-      var up = selectedTr.previousElementSibling.children[selectedIndex];
-      while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
-    }
-    if (selectedTrIndex < selectedTrLastC) {
-      var down = selectedTr.nextElementSibling.children[selectedIndex];
-      while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
-    }
-    if (selectedIndex == selectedFirstC && selectedTrIndex != selectedTrFirst) {
-      var left = [...selectedTr.previousElementSibling.getElementsByClassName('c')].pop();
-    } else if (selectedIndex > selectedFirstC) {
-      var left = selected.previousElementSibling;
-      while (!left.classList.contains('c')) left = left.previousElementSibling;
-    }
-    if (selectedIndex == selectedLastC && selectedTrIndex != selectedTrLast) {
-      var right = [...selectedTr.nextElementSibling.getElementsByClassName('c')][0];
-    } else if (selectedIndex < selectedLastC) {
-      var right = selected.nextElementSibling;
-      while (!right.classList.contains('c')) right = right.nextElementSibling;
-    }
+      var selectedTrIndex = [...selectedTr.parentElement.children].indexOf(selectedTr);
+      var selectedTrFirst = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children][0]);
+      var selectedTrLast = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.children].pop());
+      var selectedTrFirstC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')][0]);
+      var selectedTrLastC = [...selectedTr.parentElement.children].indexOf([...selectedTr.parentElement.querySelectorAll('tr:has(.c:nth-child(' + (selectedIndex + 1) + '))')].pop());
 
-    if (document.getElementById('tameshi') != document.activeElement) {
-      if (event.key == 'ArrowUp' && up) up.click();
-      else if (event.key == 'ArrowDown' && down) down.click();
-      else if (event.key == 'ArrowLeft' && left) left.click();
-      else if (event.key == 'ArrowRight' && right) right.click();
+      if (selectedTrIndex > selectedTrFirstC) {
+        var up = selectedTr.previousElementSibling.children[selectedIndex];
+        while (!up.classList.contains('c')) up = up.parentElement.previousElementSibling.children[selectedIndex];
+      }
+      if (selectedTrIndex < selectedTrLastC) {
+        var down = selectedTr.nextElementSibling.children[selectedIndex];
+        while (!down.classList.contains('c')) down = down.parentElement.nextElementSibling.children[selectedIndex];
+      }
+      if (selectedIndex == selectedFirstC && selectedTrIndex != selectedTrFirst) {
+        var left = [...selectedTr.previousElementSibling.getElementsByClassName('c')].pop();
+      } else if (selectedIndex > selectedFirstC) {
+        var left = selected.previousElementSibling;
+        while (!left.classList.contains('c')) left = left.previousElementSibling;
+      }
+      if (selectedIndex == selectedLastC && selectedTrIndex != selectedTrLast) {
+        var right = [...selectedTr.nextElementSibling.getElementsByClassName('c')][0];
+      } else if (selectedIndex < selectedLastC) {
+        var right = selected.nextElementSibling;
+        while (!right.classList.contains('c')) right = right.nextElementSibling;
+      }
+
+      if (document.getElementById('tameshi') != document.activeElement) {
+        if (event.key == 'ArrowUp' && up) up.click();
+        else if (event.key == 'ArrowDown' && down) down.click();
+        else if (event.key == 'ArrowLeft' && left) left.click();
+        else if (event.key == 'ArrowRight' && right) right.click();
+      }
     }
   });
 </script>
