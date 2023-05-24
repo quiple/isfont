@@ -490,9 +490,11 @@ layout: default
       while (!right.classList.contains('c')) right = right.nextElementSibling;
     }
 
-    if (event.key == 'ArrowUp' && up) up.click();
-    else if (event.key == 'ArrowDown' && down) down.click();
-    else if (event.key == 'ArrowLeft' && left) left.click();
-    else if (event.key == 'ArrowRight' && right) right.click();
+    if (document.getElementById('tameshi') != document.activeElement) {
+      if (event.key == 'ArrowUp' && up) up.click();
+      else if (event.key == 'ArrowDown' && down) down.click();
+      else if (event.key == 'ArrowLeft' && left) left.click();
+      else if (event.key == 'ArrowRight' && right) right.click();
+    }
   });
 </script>
